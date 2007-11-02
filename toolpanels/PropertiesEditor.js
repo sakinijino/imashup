@@ -64,7 +64,7 @@ dojo.declare(
             this.ins = null;
             this.dialog.titleNode.innerHTML = "";
             if (dojo.isIE) {
-                this.propstable;
+                this.propstable; //???? to be fixed
             }
             else this.propstable.innerHTML = "";
             this.propinputs = {};
