@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <title>iMashup PropertiesEditor Test</title>
+  <style type="text/css">
+    @import "../../../dojo/resources/dojo.css";
+    @import "../../../dijit/themes/tundra/tundra.css";
+    @import "../../../dijit/themes/dijit.css";
+  </style>
+
+  <script type="text/javascript" src="../../../dojo/dojo.js" djConfig="isDebug:true, parseOnLoad: true"></script>
+  <script type="text/javascript">
+    dojo.require("imashup.toolpanels.PropertiesEditor");
+    dojo.require("imashup.toolpanels.Desktop");
+    dojo.require("doh.runner");
+
+    dojo.addOnLoad(function(){
+        doh.register("t",
+           [
+              function test_set(t){
+                 dojo.declare("im", dijit._Widget, {});
+                 var option = {
+                     impl_name : 'im',
+                     interface: {
+                         properties: {i:{type:'string'}, j:{type:'string'}},
+                         methods: {},
+                         events: {}
+                     }
+                 };
+                 var ctm = imashup.core.componentTypeManager;
+                 ctm.registerComponentType(option);
+                 var ins = new im({id:'IM'});
+
+                 var pe = dijit.byId("pe");
+                 pe.setFocusWidget(ins, true);
+                 t.is('IM Setting', pe.dialog.titleNode.innerHTML);
+                 pe.propinputs['i'].value = 'green'
+                 pe.propinputs['j'].value = ''
+                 pe.saveChanged();
+                 t.is('green', ins.i);
+                 t.is('', ins.j);
+                 pe.setFocusWidget(ins, true);
+                 pe.propinputs['i'].value = 'white'
+                 pe.propinputs['j'].value = './world.jpg'
+                 pe.cancelChanged();
+                 t.is('green', ins.i);
+                 t.is('', ins.j);
+                 t.is(2, pe.propstable.childNodes.length);
+                 pe.setFocusWidget(ins, true);
+                 pe.setFocusWidget(ins, true);
+                 t.is(2, pe.propstable.childNodes.length);
+                 pe.dialog.hide();
+              }
+           ]
+        );
+        doh.run();
+    });
+  </script>
+</head>
+<body class="tundra">
+  <div style="position:absolute; z-index:100">
+    <button onclick="dijit.byId('pe').setFocusWidget(dijit.byId('desktop1'));">Desktop Setting</button>
+  </div>
+  <div id="desktop1" dojoType="imashup.toolpanels.Desktop" wallpaperUrl="./world.jpg"></div>
+  <div id='pe' dojoType="imashup.toolpanels.PropertiesEditor" />
+</body>
+</html>

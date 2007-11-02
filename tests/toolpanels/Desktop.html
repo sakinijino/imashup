@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <title>iMashup Desktop Test</title>
+  <style type="text/css">
+    @import "../../../dojo/resources/dojo.css";
+    @import "../../../dijit/themes/tundra/tundra.css";
+    @import "../../../dijit/themes/dijit.css";
+  </style>
+
+  <script type="text/javascript" src="../../../dojo/dojo.js" djConfig="isDebug:true, parseOnLoad: true"></script>
+  <script type="text/javascript">
+    dojo.require("imashup.toolpanels.Desktop");
+    dojo.require("doh.runner");
+
+    dojo.addOnLoad(function(){
+        doh.register("t",
+           [
+              {name: 'test_resize',
+              timeout : 500,
+              runTest : function(t){
+                 var dt = dijit.byId("desktop1");
+                 var d = new doh.Deferred();
+                 var resizeHandler = dojo.connect(window, "onresize", function(){
+                    doh.is(dijit.getViewport().h+'px', dt.wall.style.height);
+                    //alert(dijit.getViewport().h+'px'+" : "+dt.wall.style.height)
+                    d.callback(true);
+                    dojo.disconnect(resizeHandler)
+                 });
+                 window.resizeTo(640, 480);
+                 return d;
+              }},
+
+              function test_setter(t){
+                 var dt = dijit.byId("desktop1");
+                 dt.setWallpaperColor('green')
+                 t.is('green', dt.wall.style.backgroundColor);
+                 dt.setWallpaperUrl('')
+                 t.is('none', dt.wall.style.backgroundImage);
+                 dt.setWallpaperUrl('./world.jpg')
+                 t.is('url(./world.jpg)', dt.wall.style.backgroundImage);
+              },
+
+              function test_imashup_setter(t){
+                 var dt = dijit.byId("desktop1");
+                 dt.imashup_setProperty('wallpaperColor', 'green')
+                 t.is('green', dt.wall.style.backgroundColor);
+                 dt.imashup_setProperty('wallpaperUrl', '')
+                 t.is('none', dt.wall.style.backgroundImage);
+                 dt.imashup_setProperty('wallpaperUrl', './world.jpg')
+                 t.is('url(./world.jpg)', dt.wall.style.backgroundImage);
+              }
+           ]
+        );
+        doh.run();
+    });
+  </script>
+</head>
+<body class="tundra">
+
+  <div style="position:absolute; z-index:100">
+    <button onclick="dijit.byId('desktop1').setWallpaperUrl('')">No Wallpaper</button>
+    <button onclick="dijit.byId('desktop1').setWallpaperColor('rgb(85, 90, 205)')">Apple Green</button>
+    <button onclick="dijit.byId('desktop1').setWallpaperColor('#fff')">White</button>
+    <button onclick="dijit.byId('desktop1').setWallpaperUrl('./world.jpg')">Wallpaper</button>
+  </div>
+  <div id="desktop1" dojoType="imashup.toolpanels.Desktop" wallpaperUrl="./world.jpg"></div>
+
+</body>
+</html>
