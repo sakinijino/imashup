@@ -1,0 +1,3 @@
+1.构件中css中图像背景的存放位置？不能使用dojoURI怎么办
+
+2.propertyeditor的运行效率问题？json巨慢～

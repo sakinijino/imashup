@@ -1,19 +1,10 @@
 <div>
 <div dojoType="dijit.Dialog" dojoAttachPoint='dialog'>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Value</th>
-      </tr>
-    </thead>
-    <tbody dojoAttachPoint='propstable' >
-    </tbody>
-  </table>
+  <div dojoType="dijit.layout.ContentPane" dojoAttachPoint='pane'>
+  </div>
   <div>
-    <button dojoAttachPoint="saveBtn" dojoAttachEvent='onclick:saveChanged'>Save</button>
-    <button dojoAttachPoint="cancelBtn" dojoAttachEvent='onclick:cancelChanged'>Cancel</button>
+    <button dojoType="dijit.form.Button" dojoAttachPoint="saveBtn" dojoAttachEvent='onClick:saveChanged'>Save</button>
+    <button dojoType="dijit.form.Button" dojoAttachPoint="cancelBtn" dojoAttachEvent='onClick:cancelChanged'>Cancel</button>
   </div>
 </div>
 </div>

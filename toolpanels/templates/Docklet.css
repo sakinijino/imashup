@@ -1,0 +1,49 @@
+.sakiDockletContainer{
+	position:absolute;
+	bottom:70px;
+	left:50%;
+}
+
+.sakiDockletSetup{
+	position:absolute;
+	right:-60px;
+	top:0px;
+	width:60px;
+	height:60px;
+	background:url('setupbg.png') no-repeat;
+}
+
+.dojoxFisheyeListItemLabel {
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: #eee;
+	border: 2px solid #666;
+	padding: 2px;
+	text-align: center;
+	position: absolute;
+	display: none;
+	white-space:pre; 
+}
+
+.dojoxFisheyeListItemLabel.dojoxFishSelected {
+	display: block;
+}
+
+.dojoxFisheyeListItemImage {
+	border: 0px;
+	position: absolute;
+}
+
+.dojoxFisheyeListItem {
+	position: absolute;
+	z-index: 2;
+	background: url('itembg.png') no-repeat ;
+}
+
+.dojoxFisheyeListItemLaunched {
+	position: absolute;
+	z-index: 2;
+	background: url('itemLaunchedbg.png') no-repeat ;
+}
+.dojoxFisheyeListBar {
+	position: relative;
+}

@@ -1,2 +1,14 @@
-<div dojoAttachPoint="dock" style="width:100%; position:absolute; z-index:99; bottom:0px; ">
+<div dojoAttachPoint="container" class="sakiDockletContainer">
+	<div dojoType="dojox.widget.FisheyeList"
+		itemWidth="60" itemHeight="60"
+		itemMaxWidth="120" itemMaxHeight="120"
+		orientation="horizontal"
+		effectUnits="2"
+		itemPadding="10"
+		attachEdge="center"
+		labelEdge="bottom"
+		dojoAttachPoint="dockTable">
+	</div>
+	<div class="sakiDockletSetup" dojoAttachPoint="setupHwd" id="universalIdForTooltip"></div>
+	<span dojoType="dijit.Tooltip" connectId="universalIdForTooltip">Click to Setup</span>
 </div>

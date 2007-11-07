@@ -75,9 +75,9 @@ dojo.declare("imashup.core.ComponentTypeManager", null, {
         if (this.types[name]==null) return null;
         return this.types[name].reqprops;
     },
-    forEach: function(func){
+    forEach: function(func) {
         for(var id in this.types){
-            func(this.getImpl(id));
+            func(id,this.getImpl(id));
         }
     }
 });

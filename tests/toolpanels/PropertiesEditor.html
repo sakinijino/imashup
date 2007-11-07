@@ -33,23 +33,25 @@
                  var ins = new im({id:'IM'});
 
                  var pe = dijit.byId("pe");
-                 pe.setFocusWidget(ins, true);
-                 t.is('IM Setting', pe.dialog.titleNode.innerHTML);
-                 pe.propinputs['i'].value = 'green'
-                 pe.propinputs['j'].value = ''
+                 pe.setFocusWidget(ins);
+                 t.is('Setting [IM]', pe.dialog.titleNode.innerHTML);
+                 
+                 pe.propinputs.simple.setValues({
+                 	'i':'green',
+                 	'j':''
+                 })
                  pe.saveChanged();
                  t.is('green', ins.i);
                  t.is('', ins.j);
                  pe.setFocusWidget(ins, true);
-                 pe.propinputs['i'].value = 'white'
-                 pe.propinputs['j'].value = './world.jpg'
+                 pe.propinputs.simple.setValues({
+                 	'i':'white',
+                 	'j':'./world.jpg'
+                 })
                  pe.cancelChanged();
                  t.is('green', ins.i);
                  t.is('', ins.j);
-                 t.is(2, pe.propstable.childNodes.length);
-                 pe.setFocusWidget(ins, true);
-                 pe.setFocusWidget(ins, true);
-                 t.is(2, pe.propstable.childNodes.length);
+
                  pe.dialog.hide();
               }
            ]
