@@ -1,0 +1,67 @@
+<div dojoAttachPoint='container'>
+	<div dojoAttachPoint='tb' dojoType="dijit.Toolbar" class="sakiMenuBar">
+			<div dojoType="dijit.form.DropDownButton">
+				<span>Start</span>
+				<div dojoType="dijit.Menu">
+					<div dojoType="dijit.PopupMenuItem">
+						<span>All Components</span>
+						<div dojoType="dijit.Menu" dojoAttachPoint='mStart'>
+						</div>
+					</div>
+					<div dojoType="dijit.MenuItem" dojoAttachPoint='setupHwd'>Settings</div>
+				</div>
+			</div>
+			<div dojoType="dijit.form.DropDownButton">
+				<span>Login</span>
+				<div dojoType="dijit.TooltipDialog" title="Enter Login information"
+					execute="alert('submitted w/args:\n' + dojo.toJson(arguments[0], true));">
+					<table>
+						<tr>
+							<td><label for="user">User:</label></td>
+							<td><input dojoType=dijit.form.TextBox type="text" name="user" ></td>
+						</tr>
+						<tr>
+							<td><label for="pwd">Password:</label></td>
+							<td><input dojoType=dijit.form.TextBox type="password" name="pwd"></td>
+						</tr>
+						<tr>
+							<td colspan="2" align="center">
+								<button dojoType=dijit.form.Button type="submit" name="submit">Login</button></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<span dojoType="dijit.ToolbarSeparator">&nbsp;</span>
+			<div dojoType="dijit.form.DropDownButton">
+				<span>Logout</span>
+				<div dojoType="dijit.TooltipDialog" title="Confirm"
+					execute="alert('submitted w/args:\n' + dojo.toJson(arguments[0], true));">
+					<table>
+						<tr>
+							<td><label for="shutdown">Shutdown</label></td>
+							<td><input type="radio" name="g1" id="shutdown" value="shutdown" dojoType="dijit.form.RadioButton"></td>
+						</tr>
+						<tr>
+							<td><label for="sleep">Sleep</label></td>
+							<td><input type="radio" name="g1" id="sleep" value="sleep" dojoType="dijit.form.RadioButton"></td>
+						</tr>
+						<tr>
+							<td><label for="logout">Logout</label></td>
+							<td><input type="radio" name="g1" id="logout" value="logout" dojoType="dijit.form.RadioButton"></td>
+						</tr>
+						<tr>
+							<td colspan="2" align="center">
+								<button dojoType=dijit.form.Button type="submit" name="submit">Roger!</button></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div dojoType="dijit.form.Button" style="position:absolute;right:0;top:0">
+				<span dojoAttachPoint='time'>coming...</span>
+			</div>
+<!--			<div dojoType="dijit.form.Button" style="position:absolute;right:100px;top:0">
+				<span dojoAttachPoint='calendar'><input name="noDOMvalue" type="text" dojoType="dijit.form.DateTextBox"></span>
+			</div>
+-->
+	</div>
+</div>

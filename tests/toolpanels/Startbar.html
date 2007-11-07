@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <title>iMashup PropertiesEditor Test</title>
+  <style type="text/css">
+    @import "../../../dojo/resources/dojo.css";
+    @import "../../../dijit/themes/tundra/tundra.css";
+    @import "../../../dijit/themes/dijit.css";
+    
+    @import "../../toolpanels/templates/Startbar.css";
+  </style>
+
+  <script type="text/javascript" src="../../../dojo/dojo.js" djConfig="isDebug:true, parseOnLoad: true"></script>
+  <script type="text/javascript">
+    dojo.require("imashup.toolpanels.PropertiesEditor");
+    dojo.require("imashup.toolpanels.Startbar");
+    dojo.require("doh.runner");
+
+    dojo.addOnLoad(function(){
+        doh.register("t",
+           [
+           	  function test_conn(t){
+           	  	var s=dijit.byId("sb");
+           	  	dojo.connect(s,"setup",function(){
+           	  		dijit.byId("pe").setFocusWidget(dijit.byId('sb'));
+           	  	})
+           	  },
+           	  
+           	  function test_1(t){
+           	  	var s=dijit.byId("sb");
+           	  	//TODO
+           	  }
+           ]
+        );
+        doh.run();
+        
+    });
+  </script>
+</head>
+<body class="tundra">
+  <div id="sb" dojoType="imashup.toolpanels.Startbar"></div><!--Sha bi~-->
+  <div id='pe' dojoType="imashup.toolpanels.PropertiesEditor" />
+</body>
+</html>

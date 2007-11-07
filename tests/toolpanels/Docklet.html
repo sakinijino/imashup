@@ -120,7 +120,6 @@
            	  
            	  //CAUTION! THIS COULD TAKE QUITE A WHILE!
            	  function test_docklet_crazy_ADD_REMOVE(t){
-           	  	return;//fix me
            	  	if(!confirm("Wanna something hot:) ???")) return;
            	  	
            	  	console.log("CAUTION! THIS COULD TAKE QUITE A WHILE!");
@@ -207,6 +206,8 @@
 						t.is(o.pNode.domNode.className,"dojoxFisheyeListItem");
 					}
         		}
+        		d.closeItem("imashup.toolpanels.Docklet");
+        		d.removeItem("imashup.toolpanels.Docklet");
            	  },
            	  function test_docklet_launch(t){
            	  	console.log("PLS ZQ FIX ME!!!!!!!!!!!!!!!!!!!")

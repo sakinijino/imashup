@@ -1,3 +1,16 @@
+saki.score=switch(num){
+	case 1,2,3,4,5:牛比！;break;
+	case 6:我操你丫也太牛比了吧; break;
+	default:".....";
+}
 1.构件中css中图像背景的存放位置？不能使用dojoURI怎么办
 
-2.propertyeditor的运行效率问题？json巨慢～
+2.propertyeditor的运行效率问题？json巨慢～（建议：做一个Loader，dojo有带进度条的）
+
+3.Dock的背景问题（需要用CSS的滑动门展开一个table，具体参看leopard的桌面）
+
+4.Core内的typemanager应该有unregister的方法，不然单元测试很难搞（看docklet的单元测试）
+
+5.pe的递归产生面板算法
+
+6.将propertyeditor的dialog改为tooltipdialog，极漂亮

@@ -1,0 +1,9 @@
+.sakiMenuBar .dijitA11yDownArrow { display: none; }
+
+.toolbarWithNoImages .dijitButtonContents .dijitInline,
+.toolbarWithNoImages .dijitButtonContents .dijitInline {
+	display: none;
+}
+
+.dijitToolbar .dijitButton, .dijitToolbar .dijitDropDownButton { margin: 0px; }
+.dijitToolbar .dijitToggleButtonSelected BUTTON, .dijitToolbar .dijitToggleButtonSelectedHover BUTTON { border-width: 3px; }
