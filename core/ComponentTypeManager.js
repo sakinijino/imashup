@@ -40,7 +40,8 @@ dojo.declare("imashup.core.Register", null, {
         layout : imashup.mixins.LayoutComponent,
         movable : imashup.mixins.MovableComponent,
         sizable : imashup.mixins.SizableComponent,
-        webos : imashup.mixins.WebOSComponent
+        webos : imashup.mixins.WebOSComponent,
+        window : imashup.mixins.WindowComponent
     },
     _mixin : function(obj, props) {
         var tobj = {};

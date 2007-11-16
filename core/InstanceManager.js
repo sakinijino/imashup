@@ -23,8 +23,10 @@ dojo.declare("imashup.core.InstanceManager", dijit.WidgetSet, {
         this.onAfterRemove(id);
     },
     onAdd : function(component){
+        dojo.publish('instance/add', [component])
     },
     onBeforeRemove : function(id){
+    	dojo.publish('instance/beforeremove', [id])
     },
     onAfterRemove : function(id){
     }

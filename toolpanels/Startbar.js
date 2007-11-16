@@ -22,31 +22,32 @@ dojo.declare(
         templatePath: dojo.moduleUrl("imashup.toolpanels", "templates/Startbar.html"),
 
         postCreate: function(){
-        	dojo.connect(this.setupHwd,"onClick",this,"setup");
-        	this.loadComponents();
-        	this.refreshEra();
+            dojo.connect(this.setupHwd,"onClick",this,"setup");
+            this.loadComponents();
+            this.refreshEra();
             this.inherited("postCreate", arguments);
         },
-        
+
         loadComponents: function(){
-			var mi = null, _this = this;
-			imashup.core.componentTypeManager.forEach(function(name, impl){
-				name = name.match(/[^\.]+$/g)[0];
-				mi = new dijit.MenuItem({label:name});
-				_this.mStart.addChild(mi);
-				_this.mStart.startup();
-			});
+            var mi = null, _this = this;
+            imashup.core.componentTypeManager.forEach(function(impl_name, impl){
+                name = impl_name.match(/[^\.]+$/g)[0];
+                mi = new dijit.MenuItem({label:name});
+                mi.onClick = function(){imashup.core.instanceManager.create(impl_name,{},null);};
+                _this.mStart.addChild(mi);
+                _this.mStart.startup();
+            });
         },
-		
-		refreshEra: function(){ //TODO:CANLENDAR
-			var t=this.time;
-			var interFunc=function(){
-				var gtm = new Date();
-				t.innerHTML=gtm.toLocaleString();
-			}
-			setInterval(interFunc,1000);
-		},
-			
+
+        refreshEra: function(){ //TODO:CANLENDAR
+            var t=this.time;
+            var interFunc=function(){
+                var gtm = new Date();
+                t.innerHTML=gtm.toLocaleString();
+            }
+            setInterval(interFunc,1000);
+        },
+
         setup: function(){//should be a uniform function for all the panels!
         }
     }
@@ -57,7 +58,7 @@ imashup.core.componentTypeManager.registerComponentType({
     interface: {
         properties: {
             unknown : {type:'complex'}
-		},
+        },
         methods: {},
         events: {}
     },

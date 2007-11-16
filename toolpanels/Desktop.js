@@ -2,11 +2,13 @@ dojo.provide("imashup.toolpanels.Desktop");
 
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
+dojo.require("dijit._Container");
+dojo.require("dojo.dnd.Moveable");
 dojo.require("imashup.core.all");
 
 dojo.declare(
     "imashup.toolpanels.Desktop",
-    [dijit._Widget, dijit._Templated],
+    [dijit._Widget, dijit._Templated, dijit._Container],
     {
         imashup_is_singleton: true,
         imashup_webos_large_icon_url: dojo.moduleUrl("imashup.toolpanels", "templates/Desktop_large.png"),
@@ -17,11 +19,72 @@ dojo.declare(
         wallpaperColor: "white",
         wallpaperStyle: "center",//center
 
+        icons: [],
+
         postCreate: function(){
             this._layout();
             this._setWallpaper();
             this._resizeHandler = this.connect(window, "onresize", "_layout");
             this.inherited("postCreate", arguments);
+
+            dojo.subscribe("instance/add", this, "_addInstance")
+            dojo.subscribe("instance/beforeremove", this, "_removeInstance")
+        },
+
+        _addInstance : function(component){
+            if (!component.imashup_is_windowcomponent) return;
+
+            component.initFloatingPane()
+            this.addChild(component.floatingpane)
+            component.floatingpane.dockTo = {_positionDock:function(){}}
+
+            component.floatingpane.bringToTop()
+
+            img = document.createElement('img')
+            img.comp = component
+            img.style.position = "absolute";
+            img.width = 48
+            img.height = 48
+            img.src = component.imashup_webos_small_icon_url
+
+            this.icons.push(img)
+
+            var _f = component.floatingpane
+            dojo.connect(img, "onclick", function(){
+                var anim = dojo.fadeIn({node:_f.domNode, duration:_f.duration,
+                    beforeBegin: dojo.hitch(_f , function(){
+                        this.domNode.style.display = "";
+                        this.domNode.style.visibility = "visible";
+                    })
+                                       }).play();
+            });
+
+            this.wall.appendChild(img);
+            this._placeIcons()
+        },
+
+        _removeInstance : function(id){
+           for (var i=0; i < this.icons.length; ++i){
+                        var ic = this.icons[i]
+                        if (ic.comp.id == id ) break;
+                }
+                this.wall.removeChild(this.icons[i])
+                this.icons.splice(i, 1)
+          this._placeIcons()
+        },
+
+        _placeIcons : function() {
+                var h = this.viewport.h
+                var flag = 0;
+                var border = parseInt((h - 50) / 100)
+                var rol = 0;
+                for (var i=0; i < this.icons.length; ++i){
+                        var ic = this.icons[i]
+                        ic.style.top = (100*flag + 50) + 'px'
+                        ic.style.left = (100*rol + 50) + 'px'
+                        flag++
+                        if(flag == border) {rol++;flag=0}
+                }
         },
 
 /*        getWallpaperStyle: function(){
@@ -47,7 +110,9 @@ dojo.declare(
         },
         _layout: function(){
             var viewport = dijit.getViewport();
+            this.viewport = viewport
             this.wall.style.height = viewport.h + 'px';
+            this._placeIcons();
         },
         _setWallpaper: function(){
             if (this.wallpaperUrl=="" || this.wallpaperUrl==null)
