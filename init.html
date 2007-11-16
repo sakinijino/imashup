@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <title>iMashup Web OS</title>
+  <style type="text/css">
+   	 @import "../dojo/resources/dojo.css";
+   	 @import "../dijit/themes/tundra/tundra.css";
+   	 @import "../dijit/themes/dijit.css";
+   	 
+   	 @import "toolpanels/templates/Docklet.css";
+   	 @import "toolpanels/templates/Startbar.css";
+   	 
+   	 @import "../dojox/layout/resources/FloatingPane.css"; 
+   	 @import "../dojox/layout/resources/ResizeHandle.css"; 
+
+  </style>
+
+  <script type="text/javascript" src="../dojo/dojo.js" djConfig="parseOnLoad: true"></script>
+  <script type="text/javascript">
+  	dojo.require("imashup.toolpanels.PropertiesEditor");
+    dojo.require("imashup.toolpanels.Startbar");
+    dojo.require("imashup.toolpanels.Desktop");
+    dojo.require("imashup.toolpanels.Docklet");
+    dojo.require("imashup.components.gadget.all")
+    dojo.require("imashup.components.igrid.WebApp")
+    
+    dojo.addOnLoad(function(){
+    	var d=dijit.byId("docklet");
+        dojo.connect(d,"setup",function(){
+        dijit.byId("pe").setFocusWidget(dijit.byId('docklet'));
+      })//zq pls make this universal
+      d.updateComponentTypeEnumeration();
+      var s=dijit.byId("startbar");
+        dojo.connect(s,"setup",function(){
+        	dijit.byId("pe").setFocusWidget(dijit.byId('startbar'));
+      })
+    })
+  </script>
+</head>
+<body class="tundra">
+	<div id="desktop" dojoType="imashup.toolpanels.Desktop" wallpaperUrl="world.jpg"></div>
+  <div id="startbar" dojoType="imashup.toolpanels.Startbar"></div>
+  <div id="docklet" dojoType="imashup.toolpanels.Docklet"></div>
+  <div id='pe' dojoType="imashup.toolpanels.PropertiesEditor" />
+</body>
+</html>
