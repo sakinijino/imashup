@@ -16,7 +16,7 @@ dojo.declare(
         maxable:true,
         width:640,
         style: "overflow:hidden",
-        url: "http://www.pku.edu.cn",
+        url: "http://www.google.com",
         
         imashup_human_name: "Browser",
         imashup_catergories : ["WWW"],
