@@ -7,10 +7,14 @@
     @import "../../../dojo/resources/dojo.css";
     @import "../../../dijit/themes/tundra/tundra.css";
     @import "../../../dijit/themes/dijit.css";
+    @import "../../../dojox/layout/resources/FloatingPane.css"; 
+		@import "../../../dojox/layout/resources/ResizeHandle.css";
+		@import "../../toolpanels/templates/DesktopIcon.css";
   </style>
 
   <script type="text/javascript" src="../../../dojo/dojo.js" djConfig="isDebug:true, parseOnLoad: true"></script>
   <script type="text/javascript">
+  	dojo.require("dijit._Templated");
     dojo.require("imashup.toolpanels.Desktop");
     dojo.require("doh.runner");
 
@@ -50,6 +54,37 @@
                  t.is('none', dt.wall.style.backgroundImage);
                  dt.imashup_setProperty('wallpaperUrl', './world.jpg')
                  t.is('url(./world.jpg)', dt.wall.style.backgroundImage);
+              },
+              
+              function test_icon(t){
+              	var dt = dijit.byId("desktop1");
+              	dojo.declare("im", [dijit._Widget, dijit._Templated], {
+                           width:200,
+                           height:50,
+                           style:"overflow:hidden",
+                           templateString: "<div style='width:20px;height:50px;background:#fff'></div>"
+                       });
+                       var option = {
+                           impl_name : 'im',
+                           interface: {
+                               properties: {},
+                               methods: {},
+                               events: {}
+                           },
+                           mixin_types: 'window'
+                       };
+                       var ctm = imashup.core.componentTypeManager;
+                       ctm.registerComponentType(option);
+                       var itm = imashup.core.instanceManager;
+
+                       var ins = itm.create('im', {id:'ins1'});
+                       /*dt.icons[0].img.onclick();
+                       t.t(ins.floatingpane._isDocked)
+                       dt.icons[0].img.onclick();
+                       t.f(ins.floatingpane._isDocked)*/
+                       t.is(dt.icons.length, 1)
+                       ins.close()
+                       t.is(dt.icons.length, 0)
               }
            ]
         );
@@ -64,6 +99,7 @@
     <button onclick="dijit.byId('desktop1').setWallpaperColor('rgb(85, 90, 205)')">Apple Green</button>
     <button onclick="dijit.byId('desktop1').setWallpaperColor('#fff')">White</button>
     <button onclick="dijit.byId('desktop1').setWallpaperUrl('./world.jpg')">Wallpaper</button>
+    <button onclick="imashup.core.instanceManager.create('im');">Icon</button>
   </div>
   <div id="desktop1" dojoType="imashup.toolpanels.Desktop" wallpaperUrl="./world.jpg"></div>
 

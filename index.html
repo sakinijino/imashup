@@ -10,6 +10,7 @@
    	 
    	 @import "toolpanels/templates/Docklet.css";
    	 @import "toolpanels/templates/Startbar.css";
+   	 @import "toolpanels/templates/DesktopIcon.css";
    	 
    	 @import "../dojox/layout/resources/FloatingPane.css"; 
    	 @import "../dojox/layout/resources/ResizeHandle.css"; 
@@ -23,25 +24,24 @@
     dojo.require("imashup.toolpanels.Desktop");
     dojo.require("imashup.toolpanels.Docklet");
     dojo.require("imashup.components.gadget.all")
-    dojo.require("imashup.components.igrid.WebApp")
+    dojo.require("imashup.components.Browser")
     
     dojo.addOnLoad(function(){
-    	var d=dijit.byId("docklet");
+    	/*var d=dijit.byId("docklet");
         dojo.connect(d,"setup",function(){
         dijit.byId("pe").setFocusWidget(dijit.byId('docklet'));
       })//zq pls make this universal
-      d.updateComponentTypeEnumeration();
-      var s=dijit.byId("startbar");
-        dojo.connect(s,"setup",function(){
-        	dijit.byId("pe").setFocusWidget(dijit.byId('startbar'));
+      d.updateComponentTypeEnumeration();*/
+      dojo.connect(dijit.byId("startbar"),"setup",function(){
+       	dijit.byId("pe").setFocusWidget(dijit.byId('desktop'));
       })
     })
   </script>
 </head>
 <body class="tundra">
-	<div id="desktop" dojoType="imashup.toolpanels.Desktop" wallpaperUrl="world.jpg"></div>
+	<div id="desktop" dojoType="imashup.toolpanels.Desktop"></div>
   <div id="startbar" dojoType="imashup.toolpanels.Startbar"></div>
-  <div id="docklet" dojoType="imashup.toolpanels.Docklet"></div>
+  <!--<div id="docklet" dojoType="imashup.toolpanels.Docklet"></div>-->
   <div id='pe' dojoType="imashup.toolpanels.PropertiesEditor" />
 </body>
 </html>

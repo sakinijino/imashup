@@ -8,6 +8,7 @@ dojo.require("dijit.Menu");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.CheckBox");
 dojo.require("dijit.form.DateTextBox");
+dojo.require("dijit.Dialog");
 dojo.require("dijit.Tooltip");
 dojo.require("imashup.core.all");
 
@@ -20,23 +21,41 @@ dojo.declare(
         imashup_webos_large_icon_url: dojo.moduleUrl("imashup.toolpanels", "templates/Startbar_large.png"),
         imashup_webos_small_icon_url: dojo.moduleUrl("imashup.toolpanels", "templates/Startbar_small.png"),
         templatePath: dojo.moduleUrl("imashup.toolpanels", "templates/Startbar.html"),
+        
+        categories: {},
 
         postCreate: function(){
             dojo.connect(this.setupHwd,"onClick",this,"setup");
             this.loadComponents();
             this.refreshEra();
+            
+            dojo.subscribe("component_manager/register", this, "addComponent")
             this.inherited("postCreate", arguments);
         },
 
         loadComponents: function(){
-            var mi = null, _this = this;
+            var _this = this;
             imashup.core.componentTypeManager.forEach(function(impl_name, impl){
-                name = impl_name.match(/[^\.]+$/g)[0];
-                mi = new dijit.MenuItem({label:name});
-                mi.onClick = function(){imashup.core.instanceManager.create(impl_name,{},null);};
-                _this.mStart.addChild(mi);
+            		if (!impl.prototype.imashup_is_weboscomponent) return;
+                _this.addComponent(impl_name, impl)
                 _this.mStart.startup();
             });
+        },
+        
+        addComponent: function(impl_name, impl){
+        				var mi = new dijit.MenuItem({label:imashup.core.componentTypeManager.getHumanName(impl_name)});
+                mi.onClick = function(){imashup.core.instanceManager.create(impl_name,{},null);};
+                
+               	var cs = imashup.core.componentTypeManager.getCategories(impl_name)
+               	if (cs.length == 0)
+               		this.mStart.addChild(mi);
+               	else if (this.categories[cs[0]] != null)
+               		this.categories[cs[0]].addChild(mi)
+               	else {
+               		this.categories[cs[0]] = new dijit.Menu();
+               		this.categories[cs[0]].addChild(mi)
+               		this.mStart.addChild(new dijit.PopupMenuItem({label:cs[0], popup:this.categories[cs[0]]}));
+               	}
         },
 
         refreshEra: function(){ //TODO:CANLENDAR
@@ -61,6 +80,6 @@ imashup.core.componentTypeManager.registerComponentType({
         },
         methods: {},
         events: {}
-    },
-    mixin_types : ['webos']
+    }
+    //mixin_types : ['webos']
 });

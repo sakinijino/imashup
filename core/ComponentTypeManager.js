@@ -9,6 +9,7 @@ dojo.declare("imashup.core.Register", null, {
         var impl = dojo.getObject(option.impl_name);
         if (!dojo.isObject(impl)) return;
 
+        impl.prototype.imashup_impl_name = option.impl_name;
         impl.prototype.imashup_interface = option.interface;
         impl.prototype.imashup_require_properties = (option.require_properties!=null)?option.require_properties:{};
 
@@ -36,13 +37,7 @@ dojo.declare("imashup.core.Register", null, {
             }
         }
     },
-    _TYPESTRINGMAPPING: {
-        layout : imashup.mixins.LayoutComponent,
-        movable : imashup.mixins.MovableComponent,
-        sizable : imashup.mixins.SizableComponent,
-        webos : imashup.mixins.WebOSComponent,
-        window : imashup.mixins.WindowComponent
-    },
+    _TYPESTRINGMAPPING: imashup.mixins.all._TYPESTRINGMAPPING,
     _mixin : function(obj, props) {
         var tobj = {};
         for (var x in props)
@@ -60,9 +55,14 @@ dojo.declare("imashup.core.ComponentTypeManager", null, {
     registerComponentType: function(option) {
         if (option.impl_name == null) return;
         this.types[option.impl_name] = this.register.register(option);
+        this.types[option.impl_name].instance_count = 0
         this.onRegister(option.impl_name);
     },
+    unregisterComponentType: function(impl_name){
+        delete this.types[impl_name]
+    },
     onRegister: function(impl_name) {
+        dojo.publish('component_manager/register', [impl_name])
     },
     getInterface: function(name) {
         if (this.types[name]==null) return null;
@@ -76,6 +76,34 @@ dojo.declare("imashup.core.ComponentTypeManager", null, {
         if (this.types[name]==null) return null;
         return this.types[name].reqprops;
     },
+    getInstanceCount: function(name) {
+        if (this.types[name]==null) return null;
+        return this.types[name].instance_count;
+    },
+    getHumanName: function(name) {
+    		var impl = this.getImpl(name);
+        if (impl == null) return;
+        return impl.prototype.imashup_getHumanName();
+    },
+    getCategories: function(name) {
+    		var impl = this.getImpl(name);
+        if (impl == null) return;
+        return impl.prototype.imashup_getCategories();
+    },
+    hasSingletonInstance: function(name) {
+        var impl = this.getImpl(name);
+        if (impl == null) return;
+        if (impl.prototype.imashup_is_singleton &&
+            impl.prototype.imashup_singleton != null) return true;
+        return false
+    },
+    getSingletonInstance: function(name) {
+        var impl = this.getImpl(name);
+        if (impl == null) return;
+        if (impl.prototype.imashup_is_singleton &&
+            impl.prototype.imashup_singleton != null) return impl.prototype.imashup_singleton;
+        return null
+    },
     forEach: function(func) {
         for(var id in this.types){
             func(id,this.getImpl(id));
@@ -84,3 +112,19 @@ dojo.declare("imashup.core.ComponentTypeManager", null, {
 });
 
 imashup.core.componentTypeManager = new imashup.core.ComponentTypeManager
+
+dojo.subscribe('instance_manager/add',
+               function(comp){
+                   with (imashup.core.componentTypeManager) {
+                       if (types[comp.imashup_impl_name])
+                           types[comp.imashup_impl_name].instance_count++
+                   }
+               })
+
+dojo.subscribe('instance_manager/beforeremove',
+               function(comp){
+                   with (imashup.core.componentTypeManager) {
+                       if (types[comp.imashup_impl_name])
+                           types[comp.imashup_impl_name].instance_count--
+                   }
+               })

@@ -9,21 +9,20 @@ dojo.declare(
     [dijit._Widget, dijit._Templated],
     {
         resizable: false,
-        width:"",
-        height:"",
-        style: "",
-        src:"",
+        width:0,
+        style: "overflow:hidden",
 
         templateString: "<div></div>",
 
         postCreate: function(){
-                this.inherited("postCreate", arguments);
                 var elem = document.createElement('iframe');
-                elem.style.width = this.width;
-                elem.style.height = this.height;
+                elem.width = this.width;
+                elem.height = this.iframe_height;
                 elem.style.left = "-1px"
                 dojo.place(elem, this.domNode, 0)
                 elem.src = this.src
+                this.width = this.width+3;
+                this.inherited("postCreate", arguments);
         }
     }
 );
@@ -36,9 +35,10 @@ imashup.components.gadget.defGadget = function(name, params){
                 imashup_webos_large_icon_url: dojo.moduleUrl("imashup.components.gadget", "templates/"+name+"_large.png"),
                 imashup_webos_small_icon_url: dojo.moduleUrl("imashup.components.gadget", "templates/"+name+"_small.png"),
                 width:params.width,
-                height:params.height,
-                style: params.style,
+                iframe_height:params.height,
                 src:params.src,
+                imashup_human_name: params.hn,
+                imashup_catergories : params.c
             }
         );
 

@@ -2,7 +2,7 @@
         "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-  <title>iMashup PropertiesEditor Test</title>
+  <title>iMashup StartBar Test</title>
   <style type="text/css">
     @import "../../../dojo/resources/dojo.css";
     @import "../../../dijit/themes/tundra/tundra.css";
@@ -13,23 +13,55 @@
 
   <script type="text/javascript" src="../../../dojo/dojo.js" djConfig="isDebug:true, parseOnLoad: true"></script>
   <script type="text/javascript">
-    dojo.require("imashup.toolpanels.PropertiesEditor");
+    //dojo.require("imashup.toolpanels.PropertiesEditor");
     dojo.require("imashup.toolpanels.Startbar");
     dojo.require("doh.runner");
 
     dojo.addOnLoad(function(){
         doh.register("t",
            [
-           	  function test_conn(t){
-           	  	var s=dijit.byId("sb");
-           	  	dojo.connect(s,"setup",function(){
-           	  		dijit.byId("pe").setFocusWidget(dijit.byId('sb'));
-           	  	})
-           	  },
-           	  
-           	  function test_1(t){
-           	  	var s=dijit.byId("sb");
-           	  	//TODO
+           	  function test_loadcomponent(t){
+           	  	dojo.declare("im1", dijit._Widget, {
+                  imashup_human_name : 'impl1',
+                  imashup_catergories : ['Test']
+           	  	});
+           	  	dojo.declare("im2", dijit._Widget, {
+                  imashup_human_name : 'impl2',
+                  imashup_catergories : ['Test']
+           	  	});
+           	  	dojo.declare("im3", dijit._Widget, {
+                  imashup_human_name : 'impl3',
+                  imashup_catergories : ['Test1']
+           	  	});
+           	  	dojo.declare("im4", dijit._Widget, {
+                  imashup_human_name : 'impl4'
+           	  	});
+           	  	var ctm = imashup.core.componentTypeManager;
+           	  	ctm.registerComponentType({
+                  impl_name : 'im1',
+                  interface: {properties: {},methods: {},events: {}},
+									mixin_types: 'webos'
+                });
+                ctm.registerComponentType({
+                  impl_name : 'im2',
+                  interface: {properties: {},methods: {},events: {}},
+									mixin_types: 'webos'
+                });
+                ctm.registerComponentType({
+                  impl_name : 'im3',
+                  interface: {properties: {},methods: {},events: {}},
+									mixin_types: 'webos'
+                });
+                ctm.registerComponentType({
+                  impl_name : 'im4',
+                  interface: {properties: {},methods: {},events: {}},
+									mixin_types: 'webos'
+                });
+                
+                var sb = dijit.byId("sb");
+                
+                t.t(sb.categories['Test'] != null);
+                t.t(sb.categories['Test1'] != null);
            	  }
            ]
         );
@@ -40,6 +72,6 @@
 </head>
 <body class="tundra">
   <div id="sb" dojoType="imashup.toolpanels.Startbar"></div><!--Sha bi~-->
-  <div id='pe' dojoType="imashup.toolpanels.PropertiesEditor" />
+  <!--<div id='pe' dojoType="imashup.toolpanels.PropertiesEditor" />-->
 </body>
 </html>

@@ -23,7 +23,7 @@ tests.register("imashup.tests.core.InstanceManager",
                 var onadd = false;
                 var h1 = dojo.connect(itm, 'onAdd', function(cmp){onadd=cmp});
                 var onbr = false;
-                var h2 = dojo.connect(itm, 'onBeforeRemove', function(id){onbr=itm.byId(id)});
+                var h2 = dojo.connect(itm, 'onBeforeRemove', function(comp){onbr=comp});
                 var onar = false;
                 var h3 = dojo.connect(itm, 'onAfterRemove', function(id){onar=itm.byId(id)});
 
@@ -64,6 +64,8 @@ tests.register("imashup.tests.core.InstanceManager",
                 t.is(ins2, itm.byId('ins1'));
                 t.is(1, onadd);
 
+                itm.destroy(ins.id)
+                itm.destroy(ins2.id)
                 dojo.disconnect(h1);
             }
         ]

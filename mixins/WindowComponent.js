@@ -7,24 +7,30 @@ dojo.provide('imashup.mixins.WindowComponent')
 dojo.declare("imashup.mixins.WindowComponent", imashup.mixins.WebOSComponent, {
     imashup_is_windowcomponent: true,
     resizable: true,
-    maxable:false,
+    maxable: true,
+    width: null,
+    height: null,
     style:"",
 
     initFloatingPane: function(){
+        this._initFloatingPane()
+        this.floatingpane.setContent(this.domNode);
+    },
+    _initFloatingPane: function(){
+        var width= this.width==null?"":("width:"+this.width+'px')
+        var height= this.height==null?"":("height:"+this.height+'px')
+        var style = [this.style, width, height].join(';')
         this.floatingpane = new dojox.layout.FloatingPane({
             maxable:this.maxable,
-            title:this.id,
             resizable:this.resizable,
-            style:this.style})
-        this.floatingpane.setContent(this.domNode);
-        var _this = this;
-        dojo.connect(this.floatingpane, "close", function(){imashup.core.instanceManager.destroy(_this.id)})
-        dojo.connect(this.floatingpane, "resize", this, "resize")
-    },
-
-    resize: function(){},
-
-    close: function(){
-        this.floatingpane.close()
+            closeable:true,
+            title:this.imashup_human_name,
+            dockable: true,
+            style:style})
+        if (this.width) this.floatingpane.domNode.style.width = this.width+'px'
+        if (this.height) this.floatingpane.domNode.style.height = this.height+'px'
+        dojo.connect(this.floatingpane, "close", dojo.hitch(this, function(){imashup.core.instanceManager.destroy(this.id)}))
+        if (dojo.isFunction(this.close)) dojo.connect(this.floatingpane, "close", this, 'close')
+        if (dojo.isFunction(this.resize)) dojo.connect(this.floatingpane, "resize", this, 'resize')
     }
 });

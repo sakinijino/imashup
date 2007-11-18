@@ -5,6 +5,8 @@ dojo.require("dijit._Templated");
 dojo.require("dijit._Container");
 dojo.require("dojo.dnd.Moveable");
 dojo.require("imashup.core.all");
+dojo.require("imashup.toolpanels.DesktopIcon");
+//dojo.require("dojo.dnd.Selector")
 
 dojo.declare(
     "imashup.toolpanels.Desktop",
@@ -16,78 +18,90 @@ dojo.declare(
         templatePath: dojo.moduleUrl("imashup.toolpanels", "templates/Desktop.html"),
 
         wallpaperUrl: "",
-        wallpaperColor: "white",
+        wallpaperColor: "rgb(85, 90, 205)",
         wallpaperStyle: "center",//center
 
         icons: [],
 
         postCreate: function(){
-            this._layout();
+            this._resize();
             this._setWallpaper();
-            this._resizeHandler = this.connect(window, "onresize", "_layout");
-            this.inherited("postCreate", arguments);
+            this._resizeHandler = this.connect(window, "onresize", "_resize");
+            dojo.subscribe("instance_manager/add", this, "_addInstance")
+            dojo.subscribe("instance_manager/beforeremove", this, "_removeInstance")
+            
+            //this.iconSelector = new dojo.dnd.Selector();
 
-            dojo.subscribe("instance/add", this, "_addInstance")
-            dojo.subscribe("instance/beforeremove", this, "_removeInstance")
+            this.inherited("postCreate", arguments);
+        },
+        _resize: function(){
+            this._layout();
+            this._placeIcons();
+        },
+        _layout: function(){
+            var viewport = dijit.getViewport();
+            this.viewport = viewport
+            this.wall.style.height = viewport.h + 'px';
         },
 
-        _addInstance : function(component){
+        _initWindowComponent : function(component){
             if (!component.imashup_is_windowcomponent) return;
-
             component.initFloatingPane()
+            var startbar_height = 20
+            component.floatingpane.domNode.style.top = startbar_height+"px";
+            component.floatingpane.maximize = function(){
+							if(this._maximized){ return; }
+							this._naturalState = dojo.coords(this.domNode);
+							if(this._isDocked){
+								this.show();
+								setTimeout(dojo.hitch(this,"maximize"),this.duration);
+							}
+							dojo.addClass(this.focusNode,"floatingPaneMaximized");
+							var v = dijit.getViewport()
+							v.t = v.t+startbar_height
+							v.h = v.h-startbar_height
+							this.resize(v);
+							this._maximized = true;
+						},
+            component.floatingpane.startup()
             this.addChild(component.floatingpane)
-            component.floatingpane.dockTo = {_positionDock:function(){}}
-
             component.floatingpane.bringToTop()
+        },
+        _addInstance : function(component){
+            this._initWindowComponent(component)
 
-            img = document.createElement('img')
-            img.comp = component
-            img.style.position = "absolute";
-            img.width = 48
-            img.height = 48
-            img.src = component.imashup_webos_small_icon_url
+            var icon = new imashup.toolpanels.DesktopIcon({component:component})
+            icon.domNode.style.position = 'absolute'
+            this.icons.push(icon);
+            this.wall.appendChild(icon.domNode);
+            this._placeIcons();
+        },
 
-            this.icons.push(img)
-
-            var _f = component.floatingpane
-            dojo.connect(img, "onclick", function(){
-                var anim = dojo.fadeIn({node:_f.domNode, duration:_f.duration,
-                    beforeBegin: dojo.hitch(_f , function(){
-                        this.domNode.style.display = "";
-                        this.domNode.style.visibility = "visible";
-                    })
-                                       }).play();
-            });
-
-            this.wall.appendChild(img);
+        _removeInstance : function(component){
+            for (var i=0; i < this.icons.length; ++i){
+                var ic = this.icons[i]
+                if (ic.component == component ) break;
+            }
+            this.wall.removeChild(this.icons[i].domNode)
+            this.icons.splice(i, 1)
             this._placeIcons()
         },
 
-        _removeInstance : function(id){
-           for (var i=0; i < this.icons.length; ++i){
-                        var ic = this.icons[i]
-                        if (ic.comp.id == id ) break;
-                }
-                this.wall.removeChild(this.icons[i])
-                this.icons.splice(i, 1)
-          this._placeIcons()
-        },
-
         _placeIcons : function() {
-                var h = this.viewport.h
-                var flag = 0;
-                var border = parseInt((h - 50) / 100)
-                var rol = 0;
-                for (var i=0; i < this.icons.length; ++i){
-                        var ic = this.icons[i]
-                        ic.style.top = (100*flag + 50) + 'px'
-                        ic.style.left = (100*rol + 50) + 'px'
-                        flag++
-                        if(flag == border) {rol++;flag=0}
-                }
+            var h = this.viewport.h
+            var flag = 0;
+            var border = parseInt((h - 50) / 100)
+            var rol = 0;
+            for (var i=0; i < this.icons.length; ++i){
+                var ic = this.icons[i].domNode
+                ic.style.top = (100*flag + 50) + 'px'
+                ic.style.left = (100*rol + 50) + 'px'
+                flag++
+                if(flag == border) {rol++;flag=0}
+            }
         },
 
-/*        getWallpaperStyle: function(){
+        /*getWallpaperStyle: function(){
             return this.wallpaperStyle;
         },
         setWallpaperStyle: function(wallpaperStyle){
@@ -107,12 +121,6 @@ dojo.declare(
         setWallpaperUrl: function(wallpaperUrl){
             this.wallpaperUrl = wallpaperUrl
             this._setWallpaper();
-        },
-        _layout: function(){
-            var viewport = dijit.getViewport();
-            this.viewport = viewport
-            this.wall.style.height = viewport.h + 'px';
-            this._placeIcons();
         },
         _setWallpaper: function(){
             if (this.wallpaperUrl=="" || this.wallpaperUrl==null)
@@ -140,6 +148,6 @@ imashup.core.componentTypeManager.registerComponentType({
         },
         methods: {},
         events: {}
-    },
-    mixin_types : ['webos']
+    }
+    //mixin_types : ['webos']
 });

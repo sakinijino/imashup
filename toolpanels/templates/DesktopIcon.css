@@ -1,0 +1,24 @@
+.imashupDesktopIcon{
+	cursor: pointer;
+	width:48px;
+}
+
+.imashupDesktopIcon img{
+	position: absolute;
+}
+
+.imashupDesktopIcon .Selected{
+	border: solid 1px red;
+	-moz-opacity:0.9;
+}
+
+.imashupDesktopIcon .button{
+	float:right;
+	font-size:smaller;
+	background:#fff;
+	display:none;
+}
+
+.imashupDesktopIcon .hover{
+	display:inline;
+}
