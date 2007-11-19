@@ -33,6 +33,8 @@ dojo.declare(
             this.inherited("postCreate", arguments);
         },
 
+		color: "",
+		
         loadComponents: function(){
             var _this = this;
             imashup.core.componentTypeManager.forEach(function(impl_name, impl){
@@ -76,7 +78,7 @@ imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.toolpanels.Startbar',
     interface: {
         properties: {
-            unknown : {type:'complex'}
+            color : {type:'string'}
         },
         methods: {},
         events: {}

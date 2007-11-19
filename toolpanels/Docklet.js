@@ -21,58 +21,59 @@ dojo.declare(
         imashup_webos_small_icon_url: dojo.moduleUrl("imashup.toolpanels", "templates/Docklet_small.png"),
         templatePath: dojo.moduleUrl("imashup.toolpanels", "templates/Docklet.html"),
 
-        componentTypeEnumeration: [],
+        componentTypeEnumeration: {},
 
         postCreate: function(){
             dojo.connect(this.setupHwd,"onclick",this,"setup");
             this.inherited("postCreate", arguments);
         },
-
+        	
         getComponentTypeEnumeration: function(){
             this.updateComponentTypeEnumeration();
-            var template = {};
-            var data = {};
-            dojo.forEach(this.componentTypeEnumeration, function(o){
-                var name = o.name.replace(/\./g,'_');//erase ambiguity of . in form auto-filling
-                                template[name] = {"dojoType":"dijit.form.CheckBox", "value":"on"};
-                data[name] = (o.flag==true?["on"]:[]);
-            })
-            return dojo.toJson({"template":template,"data":data}, true);
-        },
-
-        setComponentTypeEnumeration: function(data){
-            var cte = this.componentTypeEnumeration;
-            for (var i = 0 ; i < cte.length ; i++){
-                var name = cte[i].name.replace(/\./g,'_');//erase ambiguity of . in form auto-filling
-                var choice = (data[name].join("")=="on"?true:false);
-                if(cte[i].flag ^ choice)
-                    if(cte[i].flag==true)
-                        this.removeItem(cte[i].name);
-                else
-                    this.addItem(cte[i].name);
+            var obj={};
+            for (var i in this.componentTypeEnumeration){
+            	var o = this.componentTypeEnumeration[i];
+            	obj[i] = o.flag;
             }
+            return obj;
+        },
+        	
+        setComponentTypeEnumeration: function(data){
+            for (var i in data){
+            	var o = this.componentTypeEnumeration[i];
+            	o.flag = data[i];
+            }
+            this.updateComponentTypeEnumeration();
         },
 
         updateComponentTypeEnumeration: function(){
             var cte = this.componentTypeEnumeration;
-            if(cte.length==0)
+            //Consistency with manager
+            if(cte=={})
                 imashup.core.componentTypeManager.forEach(function(name, impl){
-                    cte.push({"name":name,"flag":false,"pNode":null});
+                	cte[name] = {"flag":false, "pNode":null};
                 });
             else{
                 var _temp = {};
                 imashup.core.componentTypeManager.forEach(function(name, impl){
                     _temp[name] = name;
                 });
-                for (var i=0; i < cte.length; i++){
+                for (var i in cte){
                     var o = cte[i];
-                    if(_temp[o.name]==null)
-                        cte.splice(i, 1);
-                    delete _temp[o.name];
+                    if(_temp[i]==null)
+                        delete cte[i];
+                    delete _temp[i];
                 }
                 for (var j in _temp)
-                    cte.push({"name":_temp[j],"flag":false,"pNode":null});
+                	cte[_temp[j]] = {"flag":false, "pNode":null};
             }
+            //Appearence
+            for (var i in cte){
+				if(cte[i].flag==false && cte[i].pNode!=null)
+                	this.removeItem(i);
+                else if (cte[i].flag==true && cte[i].pNode==null)
+                   this.addItem(i);
+           }
         },
 
         addItem: function(impl_name){
@@ -87,14 +88,9 @@ dojo.declare(
                 dojo.connect(newItem,"onClick",function(){_this.launchItem(newItem.label);})
                 newItem.postCreate();
                 this.dockTable.addChild(newItem);
-                for (var i = 0;i < this.componentTypeEnumeration.length;i++){
-                    var o = this.componentTypeEnumeration[i];
-                    if (o.name == impl_name){
-                        o.flag = true;
-                        o.pNode = newItem;
-                        break;
-                    }
-                }
+                
+                this.componentTypeEnumeration[impl_name].flag = true;
+                this.componentTypeEnumeration[impl_name].pNode = newItem;
 
                 newItem.startup();
                 this.dockTable.startup();
@@ -102,22 +98,19 @@ dojo.declare(
                 return true;
             }catch(e){
                 newItem.destroy();
+                this.componentTypeEnumeration[impl_name].flag = false;
+                this.componentTypeEnumeration[impl_name].pNode = null;
                 return false;
             }
         },
 
         removeItem: function(impl_name){
             try{
-                for (var i = 0;i < this.componentTypeEnumeration.length;i++){
-                    var o = this.componentTypeEnumeration[i];
-                    if (o.name == impl_name){
-                        if(o.flag == false)
-                            return;
-                        o.flag = false;
-                        o.pNode.destroy();
-                        o.pNode = null;
-                    }
-                }
+            	var o = this.componentTypeEnumeration[impl_name];
+				o.flag = false;
+				if(o.pNode == null) return;
+                o.pNode.destroy();
+                o.pNode = null;
                 this.dockTable.startup();
                 this.onDecrease(impl_name);
                 return true;
@@ -127,24 +120,16 @@ dojo.declare(
         },
 
         launchItem: function(impl_name){
-            for (i = 0;i < this.componentTypeEnumeration.length;i++){
-                var o = this.componentTypeEnumeration[i];
-                if (o.name == impl_name){
-                    o.pNode.domNode.className = "dojoxFisheyeListItemLaunched";
-                }
-            }
-            //return; //fix me
+        	var o = this.componentTypeEnumeration[impl_name];
+        	o.pNode.domNode.className = "dojoxFisheyeListItemLaunched";
+
             return imashup.core.instanceManager.create(impl_name,{},null);
         },
 
         closeItem: function(impl_name){
             //maybe we get impl_name from instance.declaredClass???
-            for (var i = 0;i < this.componentTypeEnumeration.length;i++){
-                var o = this.componentTypeEnumeration[i];
-                if (o.name == impl_name){
-                    o.pNode.domNode.className = "dojoxFisheyeListItem";
-                }
-            }
+        	var o = this.componentTypeEnumeration[impl_name];
+        	o.pNode.domNode.className = "dojoxFisheyeListItem";
             return; //fix me
         },
 
@@ -163,8 +148,8 @@ imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.toolpanels.Docklet',
     interface: {
         properties: {
-            componentTypeEnumeration : {type:'complex'}
-                },
+            componentTypeEnumeration : {type:'object'}
+        },
         methods: {},
         events: {}
     }

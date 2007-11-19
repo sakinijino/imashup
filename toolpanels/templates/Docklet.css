@@ -1,12 +1,9 @@
 .sakiDockletContainer{
-	position:absolute;
-	bottom:70px;
-	left:50%;
+	position:relative;
 }
-
 .sakiDockletSetup{
-	position:absolute;
-	right:-60px;
+	position:relative;
+	right:0px;
 	top:0px;
 	width:60px;
 	height:60px;
