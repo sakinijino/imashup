@@ -1,14 +1,14 @@
-<div dojoAttachPoint="container" class="sakiDockletContainer" align="center">
-	<div dojoType="dojox.widget.FisheyeList"
-		itemWidth="60" itemHeight="60"
-		itemMaxWidth="120" itemMaxHeight="120"
-		orientation="horizontal"
-		effectUnits="2"
-		itemPadding="10"
-		attachEdge="top"
-		labelEdge="bottom"
-		dojoAttachPoint="dockTable">
-	</div>
-	<div class="sakiDockletSetup" dojoAttachPoint="setupHwd" id="universalIdForTooltip"></div>
+<div dojoAttachPoint="container" class="sakiDockletContainer">
+		<div dojoType="dojox.widget.FisheyeList"
+			itemWidth="60" itemHeight="60"
+			itemMaxWidth="120" itemMaxHeight="120"
+			orientation="horizontal"
+			effectUnits="2"
+			itemPadding="10"
+			attachEdge="center"
+			labelEdge="bottom"
+			dojoAttachPoint="dockTable" style="margin-left:auto;margin-right:auto;">
+		</div>
+		<div class="sakiDockletSetup" dojoAttachPoint="setupHwd" id="universalIdForTooltip"></div>
 	<span dojoType="dijit.Tooltip" connectId="universalIdForTooltip">Click to Setup</span>
 </div>

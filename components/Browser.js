@@ -33,6 +33,8 @@ dojo.declare(
             }
             this.bar.value = this.url;
             
+            if (dojo.isIE) this.iframe.onreadystatechange = dojo.hitch(this, function(){this.bar.value = this.iframe.src})
+            
             dojo.connect(this.gotobutton, 'onclick', dojo.hitch(this, function(){
             	if (!this.bar.value.match("[a-zA-Z]+://")) this.bar.value = "http://" + this.bar.value ;
             	this.iframe.src = this.bar.value

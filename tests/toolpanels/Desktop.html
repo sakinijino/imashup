@@ -9,6 +9,7 @@
     @import "../../../dijit/themes/dijit.css";
     @import "../../../dojox/layout/resources/FloatingPane.css"; 
 		@import "../../../dojox/layout/resources/ResizeHandle.css";
+		@import "../../toolpanels/templates/Desktop.css";
 		@import "../../toolpanels/templates/DesktopIcon.css";
   </style>
 
@@ -83,7 +84,7 @@
                        dt.icons[0].img.onclick();
                        t.f(ins.floatingpane._isDocked)*/
                        t.is(dt.icons.length, 1)
-                       ins.close()
+                       ins.floatingpane.close()
                        t.is(dt.icons.length, 0)
               }
            ]

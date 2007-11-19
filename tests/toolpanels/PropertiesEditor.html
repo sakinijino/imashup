@@ -42,7 +42,7 @@
                         	j:{type:'string'},
                         	n:{type:'number'},
                         	b:{type:'boolean'},
-                        	f:{type:'boolean'},
+                        	f:{type:'boolean'}
                         },
                         methods: {},
                         events: {}
@@ -183,6 +183,7 @@
            	  	pe.saveChanged();
            	  	t.is(ins.a[2].imComplex[1].toldyou.i.am.complex,false);
            	  	pe.dialog.show();
+           	  	pe.dialog.hide();
            	  },
            	  
            	  function test_destroy(t){

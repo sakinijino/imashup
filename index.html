@@ -8,8 +8,11 @@
    	 @import "../dijit/themes/tundra/tundra.css";
    	 @import "../dijit/themes/dijit.css";
    	 
+   	 @import "toolpanels/templates/Desktop.css";
    	 @import "toolpanels/templates/Docklet.css";
    	 @import "toolpanels/templates/Startbar.css";
+   	 @import "toolpanels/templates/DesktopIcon.css";
+   	 @import "components/igrid/templates/iGrid.css";
    	 
    	 @import "../dojox/layout/resources/FloatingPane.css"; 
    	 @import "../dojox/layout/resources/ResizeHandle.css"; 
@@ -23,26 +26,26 @@
     dojo.require("imashup.toolpanels.Desktop");
     dojo.require("imashup.toolpanels.Docklet");
     dojo.require("imashup.components.gadget.all")
-    dojo.require("imashup.components.igrid.WebApp")
+    dojo.require("imashup.components.Browser");
+    dojo.require("imashup.components.igrid.all");
     
     dojo.addOnLoad(function(){
-    	var d=dijit.byId("docklet");
-        dojo.connect(d,"setup",function(){
+      dojo.connect(dijit.byId('docklet'),"setup",function(){
         dijit.byId("pe").setFocusWidget(dijit.byId('docklet'));
-      })//zq pls make this universal
-      d.updateComponentTypeEnumeration();
-      var s=dijit.byId("startbar");
-        dojo.connect(s,"setup",function(){
-        	dijit.byId("pe").setFocusWidget(dijit.byId('startbar'));
+      })
+      dijit.byId("docklet").updateComponentTypeEnumeration();
+      dojo.connect(dijit.byId("startbar").setupDesktop,"onClick",function(){
+       	dijit.byId("pe").setFocusWidget(dijit.byId('desktop'));
+      })
+      dojo.connect(dijit.byId("startbar").setupDocklet,"onClick",function(){
+       	dijit.byId("pe").setFocusWidget(dijit.byId('docklet'));
       })
     })
   </script>
 </head>
 <body class="tundra">
-  <div id="desktop" dojoType="imashup.toolpanels.Desktop" wallpaperUrl="world.jpg"></div>
+	<div id="desktop" dojoType="imashup.toolpanels.Desktop"></div>
   <div id="startbar" dojoType="imashup.toolpanels.Startbar"></div>
-  
-  <div style="width:100%;height:450px;"></div>
   <div id="docklet" dojoType="imashup.toolpanels.Docklet"></div>
   <div id='pe' dojoType="imashup.toolpanels.PropertiesEditor" />
 </body>

@@ -79,7 +79,7 @@ tests.register("imashup.tests.mixins.Mixins",
                             ins.floatingpane.domNode.style.height);
                        t.is("hidden",
                             ins.floatingpane.domNode.style.overflow);
-                       ins.close()
+                       ins.floatingpane.close()
                        imashup.core.instanceManager.byId('ins1')
                        ctm.unregisterComponentType('im');
                    }

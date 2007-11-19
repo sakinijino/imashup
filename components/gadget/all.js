@@ -2,6 +2,30 @@ dojo.provide("imashup.components.gadget.all");
 
 dojo.require("imashup.components.gadget._Gadget")
 
+imashup.components.gadget.defGadget("GTalk", {
+	width:320,
+  height:451,
+  hn: "GTalk",
+  c: ['Office'],
+  src:"http://gmodules.com/ig/ifr?url=http://www.google.com/ig/modules/googletalk.xml&amp;synd=open&amp;w=320&amp;h=451&amp;title=&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"
+})
+
+imashup.components.gadget.defGadget("GoogleDocs", {
+	width:320,
+  height:200,
+  hn: "Google Docs",
+  c: ['Office'],
+  src:"http://gmodules.com/ig/ifr?url=http://www.google.com/ig/modules/docs.xml&amp;up_numDocuments=7&amp;up_showLastEdit=1&amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;lang=en&amp;country=ALL&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"
+})
+
+imashup.components.gadget.defGadget("GoogleNotebook", {
+	width:320,
+  height:200,
+  hn: "Google Notebook",
+  c: ['Office'],
+  src:"http://gmodules.com/ig/ifr?url=http://www.google/com/ig/modules/notebook.xml&amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;lang=en&amp;country=ALL&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"
+})
+
 imashup.components.gadget.defGadget("GoogleCalendar", {
 	width:330,
   height:450,
@@ -17,6 +41,25 @@ imashup.components.gadget.defGadget("GoogleDocs", {
   c: ['Office'],
   src:"http://gmodules.com/ig/ifr?url=http://www.google.com/ig/modules/docs.xml&amp;up_numDocuments=7&amp;up_showLastEdit=1&amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;lang=en&amp;country=ALL&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"
 })
+
+if (dojo.isIE) {
+	imashup.components.gadget.defGadget("MicrosoftOutlook", {
+		width:400,
+	  height:580,
+	  hn: "Microsoft Outlook",
+	  c: ['Office'],
+	  src:"http://gmodules.com/ig/ifr?url=http://andyast.googlepages.com/MSOutlookWidget.xml&amp;up_DefaultView=Inbox&amp;synd=open&amp;w=400&amp;h=580&amp;title=&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"
+	})
+}
+
+imashup.components.gadget.defGadget("Painter", {
+	width:280,
+  height:350,
+  hn: "Painter",
+  c: ['Toolkit'],
+  src:"http://gmodules.com/ig/ifr?url=http://offtype.net/google_gadget/painter.xml&amp;synd=open&amp;w=280&amp;h=350&amp;title=&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"
+})
+
 
 imashup.components.gadget.defGadget("DateTime", {
 	width:330,

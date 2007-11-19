@@ -40,7 +40,7 @@ dojo.declare(
                 return;
             }
             this.ins = ins;
-            this.dialog.titleNode.innerHTML = "Setting ["+ins.id+"]";
+            this.dialog.titleNode.innerHTML = "Setting ["+imashup.core.componentTypeManager.getHumanName(ins.imashup_impl_name)+"]";
 			
 			this.childDlgs = [];
 			var form = new dijit.form.Form({"action":""});
@@ -49,7 +49,8 @@ dojo.declare(
 			var table = document.createElement("table");
 
             for (var name in this.ins.imashup_interface.properties){
-            	this._prop2row(name, this.ins.imashup_getProperty(name), table);
+            	this._prop2row(name, this.ins.imashup_getProperty(name), 
+            		table, this.ins.imashup_interface.properties[name].humanname==null?name:this.ins.imashup_interface.properties[name].humanname);
             };
             form.domNode.appendChild(table);
         	this.pane.domNode.appendChild(form.domNode);
@@ -58,22 +59,21 @@ dojo.declare(
             this.dialog.show();			
 		},
 		
-		_prop2row: function(propName, propIns, pTable){
+		_prop2row: function(propName, propIns, pTable, humanname){
 			if (propIns == null || propIns == undefined)
 				return null;
 			//Group like this:
 			//Simple type: one row
 			//Complex type(array, object): one button, new Dialog
-
 			var td = null, text = null;
 			var tr = document.createElement("tr");
-			var fun = function(input,setFunction){
+			var fun = function(input,setFunction,humanname){
 	            input.name = propName;
 	            input[setFunction](propIns);	
 
 	            td = document.createElement("td");
-	            td.width="30%";
-	            text = document.createTextNode(propName);
+	            //td.width="30%";
+	            text = document.createTextNode(humanname);
 	            td.appendChild(text);
 	            tr.appendChild(td);
 	            td = document.createElement("td");
@@ -82,24 +82,24 @@ dojo.declare(
 			}
 			if (dojo.isString(propIns)){
 	            var input = new dijit.form.TextBox();
-	            fun(input,"setValue");
+	            fun(input,"setValue", humanname);
 			}else if (dojo.isNumber(propIns)){
 	            var input = new dijit.form.NumberSpinner();
-	            fun(input,"setValue");
+	            fun(input,"setValue", humanname);
 			}else if (dojo.isBoolean(propIns)){
 				var input = new dijit.form.CheckBox();
-	            fun(input,"setChecked");
+	            fun(input,"setChecked", humanname);
 			}else if (dojo.isArray(propIns)){
 				var _this = this, index=0;
 				dojo.forEach(propIns, function(per){
-					_this._prop2row(propName.concat("_"+index++), per, pTable);
+					_this._prop2row(propName.concat("_"+index++), per, pTable, humanname==null?propName:humanname.concat("_"+index));
 				})
 			}else if (dojo.isArrayLike(propIns)){
 				console.log("arraylike");
 			}else if (dojo.isObject(propIns)){
 				//Create a button linked to new dialog
 				var dlg = new dijit.Dialog();
-				dlg.titleNode.innerHTML = propName;
+				dlg.titleNode.innerHTML = humanname;
 				var btn_ok = new dijit.form.Button();
 				this.childDlgs.push(dlg);
 				
@@ -107,7 +107,7 @@ dojo.declare(
 				btn.setLabel("More...");	
 	            btn.onClick = function(){dlg.show();}
 	            td = document.createElement("td");
-	            td.appendChild(document.createTextNode(propName));
+	            td.appendChild(document.createTextNode(humanname));
 	            tr.appendChild(td);
 	            td = document.createElement("td");
 	            td.appendChild(btn.domNode);
@@ -118,7 +118,7 @@ dojo.declare(
 	            
 	            var table = document.createElement("table");
 	            for (var i in propIns){
-	            	this._prop2row(propName+"."+i, propIns[i], table);
+	            	this._prop2row(propName+"."+i, propIns[i], table, propIns[i].humanname==null?propName+"."+i:propIns[i].humanname);
 	            }
 	            form.domNode.appendChild(table);
 	            btn = new dijit.form.Button();

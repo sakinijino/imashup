@@ -25,6 +25,14 @@ dojo.declare(
 
         postCreate: function(){
             dojo.connect(this.setupHwd,"onclick",this,"setup");
+            dojo.subscribe("instance_manager/add", dojo.hitch(this, function(component){
+            	if (imashup.core.componentTypeManager.getInstanceCount(component.imashup_impl_name) >0 )
+            		this.launchItem(component.imashup_impl_name)
+            }))
+            dojo.subscribe("instance_manager/beforeremove", dojo.hitch(this, function(component){
+            	if (imashup.core.componentTypeManager.getInstanceCount(component.imashup_impl_name) <=0 )
+            		this.closeItem(component.imashup_impl_name)
+            }))
             this.inherited("postCreate", arguments);
         },
         	
@@ -34,6 +42,7 @@ dojo.declare(
             for (var i in this.componentTypeEnumeration){
             	var o = this.componentTypeEnumeration[i];
             	obj[i] = o.flag;
+            	//obj[i].humanname = o.humanname; fix me 
             }
             return obj;
         },
@@ -51,11 +60,13 @@ dojo.declare(
             //Consistency with manager
             if(cte=={})
                 imashup.core.componentTypeManager.forEach(function(name, impl){
-                	cte[name] = {"flag":false, "pNode":null};
+                	if (!impl.prototype.imashup_is_weboscomponent) return;
+                    cte.push({"name":name, "flag":false,"pNode":null, "humanname":imashup.core.componentTypeManager.getHumanName(name)+' Shortcut'});
                 });
             else{
                 var _temp = {};
                 imashup.core.componentTypeManager.forEach(function(name, impl){
+                	if (!impl.prototype.imashup_is_weboscomponent) return;
                     _temp[name] = name;
                 });
                 for (var i in cte){
@@ -65,7 +76,7 @@ dojo.declare(
                     delete _temp[i];
                 }
                 for (var j in _temp)
-                	cte[_temp[j]] = {"flag":false, "pNode":null};
+                	cte[_temp[j]] = {"flag":false, "pNode":null, "humanname":imashup.core.componentTypeManager.getHumanName(_temp[j])};
             }
             //Appearence
             for (var i in cte){
@@ -82,19 +93,19 @@ dojo.declare(
                 var module, path, _this = this;
                 path = imashup.core.componentTypeManager.getImpl(impl_name).prototype.imashup_webos_large_icon_url.toString();
 
-                newItem.label=impl_name;
+                newItem.label=imashup.core.componentTypeManager.getHumanName(impl_name);
                 newItem.iconSrc=path;
-                //newItem.onClick = function(){_this.launchItem(newItem.label);};
-                dojo.connect(newItem,"onClick",function(){_this.launchItem(newItem.label);})
+                dojo.connect(newItem,"onClick",function(){imashup.core.instanceManager.create(impl_name,{},null);})
                 newItem.postCreate();
                 this.dockTable.addChild(newItem);
                 
                 this.componentTypeEnumeration[impl_name].flag = true;
                 this.componentTypeEnumeration[impl_name].pNode = newItem;
-
+                
                 newItem.startup();
                 this.dockTable.startup();
                 this.onIncrease(impl_name);
+                if (imashup.core.componentTypeManager.getInstanceCount(impl_name) > 0) this.launchItem(impl_name)
                 return true;
             }catch(e){
                 newItem.destroy();
@@ -121,16 +132,12 @@ dojo.declare(
 
         launchItem: function(impl_name){
         	var o = this.componentTypeEnumeration[impl_name];
-        	o.pNode.domNode.className = "dojoxFisheyeListItemLaunched";
-
-            return imashup.core.instanceManager.create(impl_name,{},null);
+        	if (o.pNode) o.pNode.domNode.className = "dojoxFisheyeListItemLaunched";
         },
 
         closeItem: function(impl_name){
-            //maybe we get impl_name from instance.declaredClass???
         	var o = this.componentTypeEnumeration[impl_name];
-        	o.pNode.domNode.className = "dojoxFisheyeListItem";
-            return; //fix me
+        	if (o.pNode) o.pNode.domNode.className = "dojoxFisheyeListItem";
         },
 
         onIncrease: function(impl_name){
@@ -148,10 +155,10 @@ imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.toolpanels.Docklet',
     interface: {
         properties: {
-            componentTypeEnumeration : {type:'object'}
+            componentTypeEnumeration : {type:'object', humanname:"Shortcuts"}
         },
         methods: {},
         events: {}
-    },
-    mixin_types : ['webos']
+    }
+    //mixin_types : ['webos']
 });

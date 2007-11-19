@@ -18,8 +18,10 @@ dojo.declare(
         templatePath: dojo.moduleUrl("imashup.toolpanels", "templates/Desktop.html"),
 
         wallpaperUrl: "",
-        wallpaperColor: "rgb(85, 90, 205)",
+        wallpaperColor: "#555ACD",
         wallpaperStyle: "center",//center
+        
+        dock : null,
 
         icons: [],
 
@@ -47,7 +49,9 @@ dojo.declare(
         _initWindowComponent : function(component){
             if (!component.imashup_is_windowcomponent) return;
             component.initFloatingPane()
+            if (this.dock) component.floatingpane.dockTo = this.dock
             var startbar_height = 20
+            component.floatingpane.domNode.className += " imashupWindow";
             component.floatingpane.domNode.style.top = startbar_height+"px";
             component.floatingpane.maximize = function(){
 							if(this._maximized){ return; }
@@ -143,8 +147,8 @@ imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.toolpanels.Desktop',
     interface: {
         properties: {
-            wallpaperColor : {type:'string'},
-            wallpaperUrl : {type:'string'}
+            wallpaperColor : {type:'string', humanname:"Wall Paper Color"},
+            wallpaperUrl : {type:'string', humanname:"Wall Paper Image URL"}
         },
         methods: {},
         events: {}

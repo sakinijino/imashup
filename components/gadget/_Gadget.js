@@ -9,6 +9,7 @@ dojo.declare(
     [dijit._Widget, dijit._Templated],
     {
         resizable: false,
+        maxable: false,
         width:0,
         style: "overflow:hidden",
 

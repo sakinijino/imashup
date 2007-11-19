@@ -8,13 +8,13 @@
 						<div dojoType="dijit.Menu" dojoAttachPoint='mStart'>
 						</div>
 					</div>
-					<div dojoType="dijit.MenuItem" dojoAttachPoint='setupHwd'>Settings</div>
+					<div dojoType="dijit.MenuItem" dojoAttachPoint='setupDesktop'>Desktop Settings</div>
+					<div dojoType="dijit.MenuItem" dojoAttachPoint='setupDocklet'>Docklet Settings</div>
 				</div>
 			</div>
 			<div dojoType="dijit.form.DropDownButton">
 				<span>Login</span>
-				<div dojoType="dijit.TooltipDialog" title="Enter Login information"
-					execute="alert('submitted w/args:\n' + dojo.toJson(arguments[0], true));">
+				<div dojoType="dijit.TooltipDialog" title="Enter Login information">
 					<table>
 						<tr>
 							<td><label for="user">User:</label></td>
@@ -55,7 +55,8 @@
 					</table>
 				</div>
 			</div>
-			<div dojoType="dijit.form.Button" style="position:absolute;right:0;top:0">
+			<!--<div dojoType="dojox.layout.Dock" autoPosition = "south" dojoAttachPoint="dock" />-->
+			<div dojoType="dijit.form.Button" style="position:absolute;right:0;top:0;">
 				<span dojoAttachPoint='time'>coming...</span>
 			</div>
 <!--			<div dojoType="dijit.form.Button" style="position:absolute;right:100px;top:0">
