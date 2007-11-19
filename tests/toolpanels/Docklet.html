@@ -7,11 +7,11 @@
     @import "../../../dojo/resources/dojo.css";
     @import "../../../dijit/themes/tundra/tundra.css";
     @import "../../../dijit/themes/dijit.css";
+    
+	@import "../../toolpanels/templates/Docklet.css";
 
-        @import "../../toolpanels/templates/Docklet.css";
-
-        @import "../../../dojox/layout/resources/FloatingPane.css";
-        @import "../../../dojox/layout/resources/ResizeHandle.css";
+	@import "../../../dojox/layout/resources/FloatingPane.css"; 
+	@import "../../../dojox/layout/resources/ResizeHandle.css"; 
 
   </style>
 
@@ -23,23 +23,31 @@
     dojo.require("doh.runner");
 
     dojo.addOnLoad(function(){
-    		var d=dijit.byId("docklet1");
-        dojo.connect(d,"setup",function(){
-          dijit.byId("pe").setFocusWidget(dijit.byId('docklet1'));
-        })
         doh.register("t",
            [
-                  function test_docklet_init(t){
-                    //INITIALIZATION CHECK
-                    var d = dijit.byId("docklet1");
-                        t.is(d.componentTypeEnumeration.length,0);
-                  },
-                  function test_docklet_update(t){
-                        //ORDINARY UPDATE
-                        var d = dijit.byId("docklet1");
-                        d.updateComponentTypeEnumeration();
-                        t.is(d.componentTypeEnumeration.length,2);
-                        //DYNAMIC UPDATE, SHOULD BE CAPABLE TO FIND NEWLY-ADDED CLASS
+           	  function test_conn(t){
+           	  	var d=dijit.byId("docklet1");
+           	  	dojo.connect(d,"setup",function(){
+           	  		dijit.byId("pe").setFocusWidget(dijit.byId('docklet1'));
+           	  	})//zq pls make this universal
+           	  },
+           	  function test_docklet_init(t){
+           	    //INITIALIZATION CHECK
+           	    var d = dijit.byId("docklet1");
+           	    var cnt=0;
+           	    for (var i in d.componentTypeEnumeration)
+           	    	cnt++;
+           	  	t.is(cnt,0);
+           	  },
+           	  function test_docklet_update(t){
+           	  	//ORDINARY UPDATE
+           	  	var d = dijit.byId("docklet1");
+           	  	d.updateComponentTypeEnumeration();
+				var cnt=0;
+				for (var i in d.componentTypeEnumeration) cnt++;
+				
+           	  	t.is(cnt,2);
+           	  	//DYNAMIC UPDATE, SHOULD BE CAPABLE TO FIND NEWLY-ADDED CLASS
                 dojo.declare("im", dijit._Widget, {});
                 var option = {
                     impl_name : 'im',
@@ -52,168 +60,140 @@
                 var ctm = imashup.core.componentTypeManager;
                 ctm.registerComponentType(option);
                 d.updateComponentTypeEnumeration();
-                t.is(d.componentTypeEnumeration.length,3);
+                
+                cnt=0;
+                for (i in d.componentTypeEnumeration) cnt++;
+                
+                t.is(cnt,3);
                 //CORRECTNESS CHECKING
-                dojo.forEach(d.componentTypeEnumeration, function(i){
-                        t.f(i.flag);
-                        t.is(i.pNode,null);
-                })
-                  },
-                  function test_docklet_get(t){
-                        var d = dijit.byId("docklet1");
-                        var original = {
-                                "template": {
-                                        "imashup_toolpanels_Desktop": {
-                                                "dojoType": "dijit.form.CheckBox",
-                                                "value": "on"
-                                        },
-                                        "imashup_toolpanels_Docklet": {
-                                                "dojoType": "dijit.form.CheckBox",
-                                                "value": "on"
-                                        },
-                                        "im": {
-                                                "dojoType": "dijit.form.CheckBox",
-                                                "value": "on"
-                                        }
-                                },
-                                "data": {
-                                        "imashup_toolpanels_Desktop": [
-                                        ],
-                                        "imashup_toolpanels_Docklet": [
-                                        ],
-                                        "im": [
-                                        ]
-                                }
-                        }
+                for (i in d.componentTypeEnumeration){
+                	t.f(d.componentTypeEnumeration[i].flag);
+                	t.is(d.componentTypeEnumeration[i].pNode,null);
+                }
+           	  },
+           	  function test_docklet_get(t){
+           	  	var d = dijit.byId("docklet1");
+           	  	var original = {
+       	  			"imashup.toolpanels.Desktop": false,
+       	  			"imashup.toolpanels.Docklet": false,
+       	  			"im": false
+           	  	}
+           	  	t.is(dojo.toJson(d.getComponentTypeEnumeration()), dojo.toJson(original))
+           	  },
+           	  function test_docklet_set(t){
+           	  	var data = {
+       	  			"imashup.toolpanels.Desktop": false, 
+       	  			"imashup.toolpanels.Docklet": true, 
+       	  			"im": false
+           	  	}
+           	  	
+           	  	var d = dijit.byId("docklet1");
+           	  	d.setComponentTypeEnumeration(data);
+           	  	//CHECK ITEM IN MARKUP
+           	  	t.is(d.dockTable.getDescendants().length,1);
+           	  	//CHECK ITEM IN DATA STRUCTRUE
+           	  	var due=[];
+           	  	for (var i in d.componentTypeEnumeration){
+           	  		var o = d.componentTypeEnumeration[i];
+           	  		if(i == "imashup.toolpanels.Docklet"){
+           	  			t.t(o.flag);
+           	  			t.f(o.pNode==null);
+           	  			due.push(i);
+           	  		}
+           	  		else{
+           	  			t.f(o.flag);
+           	  			t.is(o.pNode,null);
+           	  		}
+           	  	}
+           	  	//CHECK NO DUPLICATION ALLOWED
+           	  	t.is(due.length,1);
+           	  },
+           	  
+           	  //CAUTION! THIS COULD TAKE QUITE A WHILE!
+           	  function test_docklet_crazy_ADD_REMOVE(t){
+           	  	if(!confirm("Wanna something hot:) ???")) return;
+           	  	
+           	  	console.log("CAUTION! THIS COULD TAKE QUITE A WHILE!");
+           	  	var d = dijit.byId("docklet1");
+				var option1 = {
+       	  			"imashup.toolpanels.Desktop": false, 
+       	  			"imashup.toolpanels.Docklet": true, 
+       	  			"im": false
+           	  	};
+				var anti_option1 = {
+       	  			"imashup.toolpanels.Desktop": true, 
+       	  			"imashup.toolpanels.Docklet": false, 
+       	  			"im": true
+           	  	};
+           	  	//CHECK REPEAT ADDING ACTION
+				d.setComponentTypeEnumeration(option1);
+				d.setComponentTypeEnumeration(option1);
+				
+       	  		var o = d.componentTypeEnumeration["imashup.toolpanels.Docklet"];
+       	  			t.t(o.flag);
+       	  			t.f(o.pNode==null);
+       	  		o = d.componentTypeEnumeration["imashup.toolpanels.Desktop"];
+       	  			t.f(o.flag);
+       	  			t.is(o.pNode,null);
+           	  	
+           	  	//CHECK REPEAT REMOVING ACTION
+           	 	d.setComponentTypeEnumeration(anti_option1);
+           	 	d.setComponentTypeEnumeration(anti_option1);
+           	  	o = d.componentTypeEnumeration["imashup.toolpanels.Docklet"];
+       	  			t.f(o.flag);
+       	  			t.t(o.pNode==null);
+           	  	o = d.componentTypeEnumeration["imashup.toolpanels.Desktop"];
+           	  		t.t(o.flag);
+           	  		t.f(o.pNode==null);
+           	  	o = d.componentTypeEnumeration["im"];
+           	  	//im is a fake class with NO icons, so it failed to establish
+       	  			t.f(o.flag);
+       	  			t.t(o.pNode==null);
+           	  	
+           	  	//CRAZY CHECK
+           	  	for (var meaningless=0;meaningless<20;meaningless++){
+					d.setComponentTypeEnumeration(option1);
+	           	 	d.setComponentTypeEnumeration(anti_option1);
+           	  	}
+				o = d.componentTypeEnumeration["imashup.toolpanels.Docklet"];
+       	  			t.f(o.flag);
+       	  			t.t(o.pNode==null);
+           	  	o = d.componentTypeEnumeration["imashup.toolpanels.Desktop"];
+       	  			t.t(o.flag);
+       	  			t.f(o.pNode==null);
+				o = d.componentTypeEnumeration["im"];
+           	  		//im is a fake class with NO icons, so it failed to establish
+       	  			t.f(o.flag);
+       	  			t.t(o.pNode==null);
 
-                        t.is(d.getComponentTypeEnumeration(), dojo.toJson(original,true))
-                  },
-                  function test_docklet_set(t){
-                        var data = {
-                                "imashup_toolpanels_Desktop": [],
-                                "imashup_toolpanels_Docklet": ["on"],
-                                "im": []
-                        }
+           	  },
+           	  function test_docklet_imageLoading(t){
+           	  	var d = dijit.byId("docklet1");
+				var option = {
+       	  			"imashup.toolpanels.Desktop": false, 
+       	  			"imashup.toolpanels.Docklet": true, 
+       	  			"im": false
+           	  	};
+           	  	//CHECK REPEAT ADDING ACTION
+				d.setComponentTypeEnumeration(option);
+				d.launchItem("imashup.toolpanels.Docklet");
 
-                        var d = dijit.byId("docklet1");
-                        d.setComponentTypeEnumeration(data);
-                        //CHECK ITEM IN MARKUP
-                        t.is(d.dockTable.getDescendants().length,1);
-                        //CHECK ITEM IN DATA STRUCTRUE
-                        var due=[];
-                        dojo.forEach(d.componentTypeEnumeration,function(i){
-                                if(i.name == "imashup.toolpanels.Docklet"){
-                                        t.t(i.flag);
-                                        t.f(i.pNode==null);
-                                        due.push(i);
-                                }
-                                else{
-                                        t.f(i.flag);
-                                        t.is(i.pNode,null);
-                                }
-                        })
-                        //CHECK NO DUPLICATION ALLOWED
-                        t.is(due.length,1);
-                  },
+				var o = d.componentTypeEnumeration["imashup.toolpanels.Docklet"];
+					t.is(o.pNode.domNode.className,"dojoxFisheyeListItemLaunched");
 
-                  //CAUTION! THIS COULD TAKE QUITE A WHILE!
-                  function test_docklet_crazy_ADD_REMOVE(t){
-                        if(!confirm("Wanna something hot:) ???")) return;
+        		d.closeItem("imashup.toolpanels.Docklet");
+					t.is(o.pNode.domNode.className,"dojoxFisheyeListItem");
 
-                        console.log("CAUTION! THIS COULD TAKE QUITE A WHILE!");
-                        var d = dijit.byId("docklet1");
-                                var option1 = {
-                                "imashup_toolpanels_Desktop": [],
-                                "imashup_toolpanels_Docklet": ["on"],
-                                "im": []
-                        };
-                                var anti_option1 = {
-                                "imashup_toolpanels_Desktop": ["on"],
-                                "imashup_toolpanels_Docklet": [],
-                                "im": ["on"]
-                        };
-                        //CHECK REPEAT ADDING ACTION
-                                d.setComponentTypeEnumeration(option1);
-                                d.setComponentTypeEnumeration(option1);
-                        dojo.forEach(d.componentTypeEnumeration,function(i){
-                                if(i.name == "imashup.toolpanels.Docklet"){
-                                        t.t(i.flag);
-                                        t.f(i.pNode==null);
-                                }
-                                else{
-                                        t.f(i.flag);
-                                        t.is(i.pNode,null);
-                                }
-                        })
-                        //CHECK REPEAT REMOVING ACTION
-                        d.setComponentTypeEnumeration(anti_option1);
-                        d.setComponentTypeEnumeration(anti_option1);
-                        dojo.forEach(d.componentTypeEnumeration,function(i){
-                                if(i.name == "imashup.toolpanels.Docklet"){
-                                        t.f(i.flag);
-                                        t.t(i.pNode==null);
-                                }
-                                else if(i.name == "imashup.toolpanels.Desktop"){
-                                        t.t(i.flag);
-                                        t.f(i.pNode==null);
-                                }else{ //im is a fake class with NO icons, so it failed to establish
-                                        t.f(i.flag);
-                                        t.t(i.pNode==null);
-                                }
-                        })
-                        //CRAZY CHECK
-                        for (var meaningless=0;meaningless<20;meaningless++){
-                                        d.setComponentTypeEnumeration(option1);
-                                d.setComponentTypeEnumeration(anti_option1);
-                        }
-                        dojo.forEach(d.componentTypeEnumeration,function(i){
-                                if(i.name == "imashup.toolpanels.Docklet"){
-                                        t.f(i.flag);
-                                        t.t(i.pNode==null);
-                                }
-                                else if(i.name == "imashup.toolpanels.Desktop"){
-                                        t.t(i.flag);
-                                        t.f(i.pNode==null);
-                                }else{ //im is a fake class with NO icons, so it failed to establish
-                                        t.f(i.flag);
-                                        t.t(i.pNode==null);
-                                }
-                        })
-                  },
-                  function test_docklet_imageLoading(t){
-                        var d = dijit.byId("docklet1");
-                                var option = {
-                                "imashup_toolpanels_Desktop": [],
-                                "imashup_toolpanels_Docklet": ["on"],
-                                "im": []
-                        };
-                        //CHECK REPEAT ADDING ACTION
-                                d.setComponentTypeEnumeration(option);
-                                d.launchItem("imashup.toolpanels.Docklet");
-                                for (i = 0;i < d.componentTypeEnumeration.length;i++){
-                                        var o = d.componentTypeEnumeration[i];
-                                        if (o.name == "imashup.toolpanels.Docklet"){
-                                                t.is(o.pNode.domNode.className,"dojoxFisheyeListItemLaunched");
-                                        }
-                        }
-
-                        d.closeItem("imashup.toolpanels.Docklet");
-                                for (i = 0;i < d.componentTypeEnumeration.length;i++){
-                                        var o = d.componentTypeEnumeration[i];
-                                        if (o.name == "imashup.toolpanels.Docklet"){
-                                                t.is(o.pNode.domNode.className,"dojoxFisheyeListItem");
-                                        }
-                        }
-                        d.closeItem("imashup.toolpanels.Docklet");
-                        d.removeItem("imashup.toolpanels.Docklet");
-                  },
-                  function test_docklet_launch(t){
-                        console.log("PLS ZQ FIX ME!!!!!!!!!!!!!!!!!!!")
-                  }
+        		d.closeItem("imashup.toolpanels.Docklet");
+        		d.removeItem("imashup.toolpanels.Docklet");
+           	  },
+           	  function test_docklet_launch(t){
+           	  	console.log("PLS ZQ FIX ME!!!!!!!!!!!!!!!!!!!")
+           	  }
            ]
         );
         doh.run();
-
+        
     });
   </script>
 </head>

@@ -152,6 +152,6 @@ imashup.core.componentTypeManager.registerComponentType({
         },
         methods: {},
         events: {}
-    }
-    //mixin_types : ['webos']
+    },
+    mixin_types : ['webos']
 });
