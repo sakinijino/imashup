@@ -1,4 +1,4 @@
-dojo.provide("imashup.components.igrid.PlatformLister");
+dojo.provide("imashup.components.igrid.ApplicationLister");
 
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
@@ -6,7 +6,7 @@ dojo.require("imashup.core.all");
 dojo.require("dojo.io.script");
 
 dojo.declare(
-    "imashup.components.igrid.PlatformLister",
+    "imashup.components.igrid.ApplicationLister",
     [dijit._Widget, dijit._Templated],
     {
         imashup_webos_large_icon_url: dojo.moduleUrl("imashup.components.igrid", "templates/iGrid_large.png"),
@@ -15,8 +15,9 @@ dojo.declare(
         resizable: false,
         maxable:false,
         width:190,
+        //height:100,
         url: "http://192.168.1.232:8080/MGService/MGService",
-        imashup_human_name : "All Platforms",
+        imashup_human_name : "All Running Applications",
         imashup_catergories : ['Managment'],
 
         templateString: "<div class='imashupiGrid'></div>",
@@ -26,16 +27,16 @@ dojo.declare(
             dojo.io.script.get({
                 url: this.url,
                 content: {
-                		"function":"imashup.core.instanceManager.byId('"+this.id+"').listPlatform",
+                		"function":"imashup.core.instanceManager.byId('"+this.id+"').listAllApplication",
                 		instanceId: "192.168.1.232",
-                		method: "listAllPlatform"
+                		method: "listAllApplication"
                 	},
                 callbackParamName: "callback"
             });
             //this.listPlatform({"message":"success","content":["tomcat4.1.24","pkuas2005","jboss44.0.3SP1"],"status":"200"})
         },
 
-        listPlatform: function(params) {
+        listAllApplication: function(params) {
         		if (params.message != "success" || params.status !="200") {this.domNode.innerHTML = "Connection Failed"; return;}
         		var table=document.createElement('table')
             var tbody=document.createElement('tbody')
@@ -44,16 +45,12 @@ dojo.declare(
             	var tr = document.createElement('tr')
             	var td = document.createElement('td')
             	td.className = "name"
-            	td.innerHTML = params.content[i];
+            	td.innerHTML = params.content;
             	tr.appendChild(td)
             	var td = document.createElement('td')
-            	td.innerHTML = "<a href='javascript:void(0)'>start</a>";
-            	tr.appendChild(td)
-            	var td = document.createElement('td')
-            	td.innerHTML = "<a href='javascript:void(0)'>stop</a>";
-            	tr.appendChild(td)
-            	var td = document.createElement('td')
-            	td.innerHTML = "<a href='javascript:void(0)'>restart</a>";
+            	td.innerHTML = "<a href='javascript:void(0)'>browser</a>";
+            	td.onclick = function(){
+            	}
             	tr.appendChild(td)
             	tbody.appendChild(tr)
             }
@@ -63,7 +60,7 @@ dojo.declare(
 )
 
 imashup.core.componentTypeManager.registerComponentType({
-    impl_name : 'imashup.components.igrid.PlatformLister',
+    impl_name : 'imashup.components.igrid.ApplicationLister',
     interface: {
         properties: {},
         methods: {},
