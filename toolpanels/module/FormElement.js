@@ -22,6 +22,7 @@ dojo.provide("imashup.toolpanels.module.FormGenerator");
 /**
 *FormElement is the abstract class of all the element
 */
+
 dojo.declare(
 		'imashup.toolpanels.module.FormElement', 
 		null, {
@@ -87,7 +88,7 @@ dojo.declare(
 						this.element = new dijit.form.TextBox();
 						this.element.setValue(value);
 						this.element.name = name;
-				},
+				}
 });
 
 /**
@@ -114,7 +115,7 @@ dojo.declare(
 
 						this.invokeBtn=new dijit.form.DropDownButton({
 								label: '&nbsp;&nbsp;',
-								dropDown: _this.colorDlg,
+								dropDown: _this.colorDlg
 						});
 						//Remove ¨‹: dojo.query('span.dijitA11yDownArrow',c.invokeBtn.domNode)[0].style.display='none'
 						
@@ -228,9 +229,11 @@ dojo.declare(
 		build: function(name, value, label){
 				this.clear();
 				this._hashForms[name] = new dijit.form.Form();
-				this._hashTables[name] = document.createElement('table');
+				this._hashTables[name] = document.createElement('tbody');
+				var table = document.createElement("table");
+				table.appendChild(this._hashTables[name]);
 				this._hashElements[name] = [];
-				this._hashForms[name].domNode.appendChild(this._hashTables[name]);
+				this._hashForms[name].domNode.appendChild(table);
 				
 				if(dojo.isObject(value))
 					for (var i in value)
@@ -259,9 +262,11 @@ dojo.declare(
 				}*/
 				else if (dojo.isObject(value)){
 						this._hashForms[name] = new dijit.form.Form();
-						this._hashTables[name] = document.createElement('table');
+						this._hashTables[name] = document.createElement('tbody');
+						var table = document.createElement("table");
+						table.appendChild(this._hashTables[name]);
 						this._hashElements[name] = [];
-						this._hashForms[name].domNode.appendChild(this._hashTables[name]);
+						this._hashForms[name].domNode.appendChild(table);
 						
 						t = new imashup.toolpanels.module.ObjectElement(name, 'more');
 						for (var i in value)
@@ -294,10 +299,8 @@ dojo.declare(
 				var o={};
 				dojo.forEach(this._hashElements[rootFormKey], function(element){
 						o[element.getNameNoNS()] = element.getValue();
-				})
+				});
 				return o;
-		},
-		set: function(){
 		},
 		clear: function(){
 				for (var i in this._hashForms) 					//Maybe we don't destroy forms, 
