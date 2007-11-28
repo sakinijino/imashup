@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <title>iMashup PropertiesEditor Test</title>
+  <style type="text/css">
+    @import "../../../dojo/resources/dojo.css";
+    @import "../../../dijit/themes/tundra/tundra.css";
+    @import "../../../dijit/themes/dijit.css";
+
+	@import "../../../dojox/layout/resources/FloatingPane.css"; 
+	@import "../../../dojox/layout/resources/ResizeHandle.css"; 
+
+  </style>
+
+  <script type="text/javascript" src="../../../dojo/dojo.js" djConfig="isDebug:true, parseOnLoad: true"></script>
+  <script type="text/javascript">
+    dojo.require("imashup.toolpanels.module.all");
+    dojo.require("doh.runner");
+
+    dojo.addOnLoad(function(){
+        doh.register("t",
+           [
+           	  function test_conn(t){
+           	  },
+           	  function test_stringDate(t){
+           	  	var a = new imashup.toolpanels.module.FormGenerator();
+           	  	a.register(1,'1997-10-20',1)
+           	  }
+           ]
+        );
+        doh.run();
+        
+    });
+  </script>
+</head>
+<body class="tundra">
+</body>
+</html>

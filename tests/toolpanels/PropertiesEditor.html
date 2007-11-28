@@ -52,13 +52,16 @@
                 ctm.registerComponentType(option);
                 var ins = new im();
            	  	pe.setFocusWidget(ins);
-           	  	var form=pe.hashForms[ins.id];
+           	  	
+           	  	var form=pe.formManager.get()[ins.id];
            	  	var o = {
-           	  		"i":"new i value",
-           	  		"j":"new j value",
-           	  		"n":999,
-           	  		"b":[],
-           	  		"f":["on"]
+	           	  		im_0:{
+	           	  		"i":"new i value",
+	           	  		"j":"new j value",
+	           	  		"n":999,
+	           	  		"b":[],
+	           	  		"f":["on"]
+	           	  	}
            	  	}
            	  	form.setValues(o)
            	  	pe.saveChanged();
@@ -70,18 +73,17 @@
            	  	pe.dialog.hide();
            	  	
            	  },
+           	  
            	  function test_complexType(t){
            	  	var pe = dijit.byId("pe");
            	  	
                 dojo.declare("im2", dijit._Widget, {
-                	a:[0,0,0,[0,0,0],[0,[0,0,[0]]]],
-                	o:{"o1":2, "o2":{"o3":4},"o4":[1,2,3]}
+                	o:{"o1":2, "o2":{"o3":4},"o4":"valueOf o4"}
                 });
                 var option = {
                     impl_name : 'im2',
                     interface: {
                         properties: {
-                        	a:{type:'array'},
                         	o:{type:'object'}
                         },
                         methods: {},
@@ -92,70 +94,42 @@
                 ctm.registerComponentType(option);
                 var ins = new im2();
            	  	pe.setFocusWidget(ins);
-           	  	var form=pe.hashForms[ins.id];
-				//num of form is as much as obj
-				var num=0;
-				for (var i in pe.hashForms) num++;
-				
-           	  	t.is(num,3);
-           	  	var mainForm = pe.hashForms[ins.id];
-           	  	mainForm.setValues({
-           	  		a_0:1,
-           	  		a_1:2,
-           	  		a_2:3,
-           	  		a_3_0:4,
-           	  		a_3_1:5,
-           	  		a_3_2:6,
-           	  		a_4_1_2_0:999
-           	  	})
-           	  	pe.saveChanged();
-           	  	t.is(ins.a[0],1);
-           	  	t.is(ins.a[1],2);
-           	  	t.is(ins.a[2],3);
-           	  	t.is(ins.a[3][0],4);
-           	  	t.is(ins.a[3][1],5);
-           	  	t.is(ins.a[3][2],6);
-           	  	t.is(ins.a[4][1][2][0],999);
            	  	
-           	  	var oForm = pe.hashForms["o"];
+           	  	var oForm = pe.formManager.get()['im2_0.o'];
            	  	oForm.setValues({
-           	  		"o":{
-	           	  		"o1":99,
-	           	  		"o4_0":-1,
-	           	  		"o4_1":-99,
-	           	  		"o4_2":1.5
+           	  		im2_0:{
+	           	  		o:{
+		           	  		o1:99,
+		           	  		o4:"newO4"
+		           	  	}
+	           	  	}
+           	  	});
+           	  	oForm = pe.formManager.get()['im2_0.o.o2'];
+           	  	oForm.setValues({
+           	  		im2_0:{
+	           	  		o:{
+		           	  		o2:{
+		           	  			o3:-99
+		           	  		}
+		           	  	}
 	           	  	}
            	  	});
            	  	pe.saveChanged();
            	  	t.is(ins.o.o1,99);
-           	  	t.is(ins.o.o4[0],-1);
-           	  	t.is(ins.o.o4[1],-99);
-           	  	t.is(ins.o.o4[2],1.5);
-           	  	
-           	  	var o2Form = pe.hashForms["o.o2"];
-           	  	o2Form.setValues({
-           	  		"o":{
-           	  			"o2":{
-           	  				"o3":-999
-           	  			}
-           	  		}
-           	  	});
-           	  	pe.saveChanged();
-           	  	t.is(ins.o.o2.o3, -999);
-           	  	pe.dialog.show();         	  	
+           	  	t.is(ins.o.o4,"newO4");
+           	  	t.is(ins.o.o2.o3,-99);   	  	
            	  },
            	  
-           	  function test_crazy(t){
+           	  function test_destroy(t){
            	  	var pe = dijit.byId("pe");
-           	  	
-                dojo.declare("im3", dijit._Widget, {
-                	a:[{"isA":true,"isB":false},{"me":[1,true]},{"imComplex":["bla",{"toldyou":{"i":{"am":{"complex":true}}} }]}]
+                dojo.declare("im", dijit._Widget, {
+                	o:{o:{o:{weird:true}}}
                 });
                 var option = {
-                    impl_name : 'im3',
+                    impl_name : 'im',
                     interface: {
                         properties: {
-                        	a:{type:'array'}
+                        	'o':{type:'object'} //I really doubt this would do anything good?
                         },
                         methods: {},
                         events: {}
@@ -163,31 +137,17 @@
                 };
                 var ctm = imashup.core.componentTypeManager;
                 ctm.registerComponentType(option);
-                var ins = new im3();
-           	  	pe.setFocusWidget(ins);
-           	  	var form = pe.hashForms["a_2.imComplex_1.toldyou.i.am"];
-           	  	var o={
-           	  		"a_2":{
-           	  			"imComplex_1":{
-           	  				"toldyou":{
-           	  					"i":{
-           	  						"am":{
-           	  							"complex":[]
-           	  						}
-           	  					}
-           	  				}
-           	  			}
-           	  		}
-           	  	}
-           	  	form.setValues(o);
-           	  	pe.saveChanged();
-           	  	t.is(ins.a[2].imComplex[1].toldyou.i.am.complex,false);
-           	  	pe.dialog.show();
-           	  	pe.dialog.hide();
-           	  },
-           	  
-           	  function test_destroy(t){
-           	  	console.log("DESTROY NOT FINISHED!")
+                var ins = new im();
+                pe.setFocusWidget(ins);
+
+           	  	/*var num = pe.dlgs.length;
+           	  	t.is(num,3);
+           	  	dojo.forEach(pe.dlgs,function(w){
+           	  		dojo.connect(w,"destroy",function(){num--;});
+           	  	});
+								pe.clear(); //TODO: Not pass here
+								pe.setFocusWidget(ins);
+           	  	t.is(num,0);*/
            	  }
            ]
         );

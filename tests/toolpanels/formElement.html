@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <title>iMashup PropertiesEditor Test</title>
+  <style type="text/css">
+    @import "../../../dojo/resources/dojo.css";
+    @import "../../../dijit/themes/tundra/tundra.css";
+    @import "../../../dijit/themes/dijit.css";
+
+		@import "../../../dojox/layout/resources/FloatingPane.css"; 
+		@import "../../../dojox/layout/resources/ResizeHandle.css"; 
+  </style>
+
+  <script type="text/javascript" src="../../../dojo/dojo.js" djConfig="isDebug:true, parseOnLoad: true"></script>
+  <script type="text/javascript">
+    dojo.require("imashup.toolpanels.module.all");
+    dojo.require("doh.runner");
+
+    dojo.addOnLoad(function(){
+    		var a=imashup.toolpanels.module.FormGenerator;
+    		
+        doh.register("t",
+           [
+           	  function test_conn(t){
+								console.log("Pe no longer support arrays")
+           	  },
+           	  function test_Simple(t){
+           	  	//var a = imashup.toolpanels.module.FormGenerator;
+								var origin={"prop1":1, "prop2": true, "prop3": "Hello", "prop4": false}
+								a.build("nameO", origin, "label")
+								t.is(dojo.toJson(a.getValues('nameO')), dojo.toJson(origin));
+								
+								var f=a.get()['nameO'];
+								var modify={nameO:{"prop1":2, "prop4":['on']}}; //GOD DAMN IT! CHECKBOX IS NOT USED FOR TRUE/FALSE! THIS IS SO UN-REAL...
+								f.setValues(modify);
+								var res = a.getValues('nameO');
+								t.is(res.prop1,2)
+								t.is(res['prop4'],true);
+					   },
+					   
+						 function test_Complex(t){
+								//var a=imashup.toolpanels.module.FormGenerator;
+								var o={"label1":true, "label2":false, "label3":{"label4":100, "label5":"content", "label6":{"label7":"myContent","label8":true}} };
+								a.build("nameO",o,"labelO");
+								var modify={
+									nameO:{
+										label3:{
+											label6:{
+												label8:[]
+											}
+										}
+									}
+								};
+								
+								var f=a.get()['nameO.label3.label6'];
+								f.setValues(modify);
+								var res = a.getValues('nameO');
+								t.is(res.label3.label6.label8, false);
+								dojo.body().appendChild(a.get()['nameO'].domNode);
+							},
+							
+           	  function test_Canlendar(t){
+								a.clear();
+								var origin = new Date(1900,1,1);
+								var ds={"sample":origin}
+								a.build("date", ds, "label");
+								
+								t.is(a.getValues('date').sample, origin)
+								
+								var modify = new Date(2000,1,1)
+								var ca = a._hashElements.date[0].getElement();
+								ca.setValue(modify);
+								
+								t.is(a.getValues('date').sample, modify)
+								
+								dojo.body().appendChild(a.get()['date'].domNode);
+					    },					
+					    		
+           	  function test_Color(t){return;
+           	  	a.clear();
+								var origin={"long":"#009900","short":"#000"}
+								a.build("color", origin, "label")
+								var colorElement = a._hashElements.color;
+								var lcolor = colorElement[0].colorDlg.getDescendants()[0];
+								var lBtnStyle = colorElement[0].invokeBtn.containerNode.style;
+
+								var scolor = colorElement[1].colorDlg.getDescendants()[0];
+								var sBtnStyle = colorElement[1].invokeBtn.containerNode.style;
+
+								t.is(dojo.colorFromRgb(lBtnStyle.backgroundColor),dojo.colorFromHex(origin['long']))
+								t.is(dojo.colorFromRgb(sBtnStyle.backgroundColor),dojo.colorFromHex(origin['short']));
+								
+								var modify={"long":"#00ff00","short":"#00f"};
+								lcolor.onChange(modify['long']);
+								scolor.onChange(modify['short']);
+								
+								t.is(a.getValues('color')['long'], modify['long'])
+								t.is(a.getValues('color')['short'], modify['short'])
+								
+								t.is(dojo.colorFromRgb(lBtnStyle.backgroundColor),dojo.colorFromHex(modify['long']))
+								t.is(dojo.colorFromRgb(sBtnStyle.backgroundColor),dojo.colorFromHex(modify['short']));
+								dojo.body().appendChild(a.get()['color'].domNode);
+					    },
+					    					    
+							function test_fucking_humanName(t){
+							}
+           ]
+        );
+        doh.run();
+        
+    });
+  </script>
+</head>
+<body class="tundra">
+</body>
+</html>

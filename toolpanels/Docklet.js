@@ -50,6 +50,7 @@ dojo.declare(
         setComponentTypeEnumeration: function(data){
             for (var i in data){
             	var o = this.componentTypeEnumeration[i];
+
             	o.flag = data[i];
             }
             this.updateComponentTypeEnumeration();
@@ -80,10 +81,10 @@ dojo.declare(
             }
             //Appearence
             for (var i in cte){
-				if(cte[i].flag==false && cte[i].pNode!=null)
-                	this.removeItem(i);
-                else if (cte[i].flag==true && cte[i].pNode==null)
-                   this.addItem(i);
+								if(cte[i].flag==false && cte[i].pNode!=null)
+		                	this.removeItem(i);
+		             else if (cte[i].flag==true && cte[i].pNode==null)
+		                   this.addItem(i);
            }
         },
 
@@ -118,13 +119,14 @@ dojo.declare(
         removeItem: function(impl_name){
             try{
             	var o = this.componentTypeEnumeration[impl_name];
-				o.flag = false;
-				if(o.pNode == null) return;
-                o.pNode.destroy();
-                o.pNode = null;
-                this.dockTable.startup();
-                this.onDecrease(impl_name);
-                return true;
+							o.flag = false;
+							if(o.pNode == null) return;
+							
+              o.pNode.destroy();
+              o.pNode = null;
+              this.dockTable.startup();
+              this.onDecrease(impl_name);
+              return true;
             }catch(e){
                 return false;
             }

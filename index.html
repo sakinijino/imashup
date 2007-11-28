@@ -33,12 +33,15 @@
       dojo.connect(dijit.byId('docklet'),"setup",function(){
         dijit.byId("pe").setFocusWidget(dijit.byId('docklet'));
       })
-      dijit.byId("docklet").updateComponentTypeEnumeration();
+      dijit.byId("docklet").updateComponentTypeEnumeration(); //to saki:y r u adding this?
       dojo.connect(dijit.byId("startbar").setupDesktop,"onClick",function(){
        	dijit.byId("pe").setFocusWidget(dijit.byId('desktop'));
       })
       dojo.connect(dijit.byId("startbar").setupDocklet,"onClick",function(){
        	dijit.byId("pe").setFocusWidget(dijit.byId('docklet'));
+      })
+      dojo.connect(dijit.byId("startbar").setupStartbar,"onClick",function(){
+       	dijit.byId("pe").setFocusWidget(dijit.byId('startbar'));
       })
     })
   </script>

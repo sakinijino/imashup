@@ -24,6 +24,8 @@ dojo.declare(
         templatePath: dojo.moduleUrl("imashup.toolpanels", "templates/Startbar.html"),
         
         categories: {},
+        color: "#f00", //fix me, not real
+        userDate: null,
 
         postCreate: function(){
             this.loadComponents();
@@ -31,8 +33,6 @@ dojo.declare(
             dojo.subscribe("component_manager/register", this, "addComponent")
             this.inherited("postCreate", arguments);
         },
-
-		color: "",
 		
         loadComponents: function(){
             var _this = this;
@@ -61,9 +61,11 @@ dojo.declare(
 
         refreshEra: function(){ //TODO:CANLENDAR
             var t=this.time;
+            var _this = this;
             var interFunc=function(){
                 var gtm = new Date();
                 t.innerHTML=gtm.toLocaleString();
+                _this.userDate = gtm;
             }
             setInterval(interFunc,1000);
         }
@@ -74,7 +76,8 @@ imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.toolpanels.Startbar',
     interface: {
         properties: {
-            color : {type:'string'}
+            color : {type:'string'},
+            userDate:{type:'date'}
         },
         methods: {},
         events: {}
