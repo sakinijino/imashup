@@ -1,0 +1,21 @@
+== Installation ==
+1. Git Clone
+2. Download Dojo package (version ~= 1.0.0)
+3. Unzip Dojo package 
+4. Make the directory structure as following
+  - <base>
+    - dijit
+    - dojo
+    - dojox
+    - imashup
+    - util
+5. Setup the base directory into a web server
+6. Open http://<base url>/imashup/index.html (Firefox is preferred)
+
+== Usage ==
+1. Open Widgets
+  Start (top left corner) -> All Services -> (Select a category) -> (Select a widget)
+2. Desktop Settings
+  Start (top left corner) -> Desktop Settings -> (Set wallpaperUrl to "wallpapers/earth.jpg")
+3. Docklet Setting
+  Start (top left corner) -> Docklet Settings -> more (componentTypeEnumeration) -> (Select some widgets and Save)

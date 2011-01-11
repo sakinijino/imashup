@@ -12,7 +12,6 @@
    	 @import "toolpanels/templates/Docklet.css";
    	 @import "toolpanels/templates/Startbar.css";
    	 @import "toolpanels/templates/DesktopIcon.css";
-   	 @import "components/igrid/templates/iGrid.css";
    	 
    	 @import "../dojox/layout/resources/FloatingPane.css"; 
    	 @import "../dojox/layout/resources/ResizeHandle.css"; 
@@ -27,7 +26,6 @@
     dojo.require("imashup.toolpanels.Docklet");
     dojo.require("imashup.components.gadget.all")
     dojo.require("imashup.components.Browser");
-    dojo.require("imashup.components.igrid.all");
     
     dojo.addOnLoad(function(){
       dojo.connect(dijit.byId('docklet'),"setup",function(){
