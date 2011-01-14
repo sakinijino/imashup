@@ -120,8 +120,8 @@ dojo.declare(
 			videoPane.setContent(content);
 			dijit.byId("desktop").addChild(videoPane);
 			videoPane.startup();
-      videoPane.domNode.style.left = e.x + "px";
-      videoPane.domNode.style.top= e.y + "px";
+      videoPane.domNode.style.left = e.clientX + "px";
+      videoPane.domNode.style.top= e.clientY + "px";
 			videoPane.bringToTop();
 		},
 		

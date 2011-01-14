@@ -191,8 +191,8 @@ dojo.declare(
 			})
 			dijit.byId("desktop").addChild(floatingPane);
       floatingPane.startup();
-      floatingPane.domNode.style.left = e.x + "px";
-      floatingPane.domNode.style.top= e.y + "px";
+      floatingPane.domNode.style.left = e.clientX + "px";
+      floatingPane.domNode.style.top= e.clientY + "px";
 			floatingPane.bringToTop();
 		},
 		
