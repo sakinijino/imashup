@@ -1,0 +1,23 @@
+<div>
+	<div class="douban" style="margin:10px">
+		<input type="text" dojoAttachPoint="inputnode" size="30" style="margin-left:5px;"/>
+		<button dojoAttachEvent="onclick:onsubmit">Search</button>
+		<button dojoAttachEvent="onclick:onnext" style="float:right; color:blue">&gt;</button>
+		<button dojoAttachEvent="onclick:onprev" style="float:right; color:blue">&lt;</button>
+		<hr/>
+		<table class="resultTable">
+			<tbody>
+				<tr style="height:400px">
+					<td class="resultList" style="width:220px">
+						<select size="30" dojoAttachPoint="resultList" style="width:200px; height:400px" dojoAttachEvent="onchange:changeSelected">
+						</select>
+					</td>
+					<td>
+						<div class="result" dojoAttachPoint="result" style="height:400px; overflow:auto">
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

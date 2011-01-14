@@ -10,7 +10,6 @@
 					</div>
 					<div dojoType="dijit.MenuItem" dojoAttachPoint='setupDesktop'>Desktop Settings</div>
 					<div dojoType="dijit.MenuItem" dojoAttachPoint='setupDocklet'>Docklet Settings</div>
-					<div dojoType="dijit.MenuItem" dojoAttachPoint='setupStartbar'>Startbar Settings</div>
 				</div>
 			</div>
 			<div dojoType="dijit.form.DropDownButton">
@@ -57,8 +56,8 @@
 				</div>
 			</div>
 			<!--<div dojoType="dojox.layout.Dock" autoPosition = "south" dojoAttachPoint="dock" />-->
-			<div dojoType="dijit.form.Button" style="position:absolute;right:0;top:0;">
-				<span dojoAttachPoint='time'>coming...</span>
+			<div dojoType="dijit.form.Button" style="position:absolute;right:0;top:0;" dojoAttachPoint="timeButton">
+				<div dojoAttachPoint="time">coming...</div>
 			</div>
 <!--			<div dojoType="dijit.form.Button" style="position:absolute;right:100px;top:0">
 				<span dojoAttachPoint='calendar'><input name="noDOMvalue" type="text" dojoType="dijit.form.DateTextBox"></span>

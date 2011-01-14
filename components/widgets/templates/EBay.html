@@ -1,0 +1,19 @@
+<div style="margin:10px">
+	<div class="inputpane">
+		Input here:<input type="text" dojoAttachPoint="inputNode" size="20" style="margin-left:5px;"/>
+		<button dojoAttachEvent="onclick:onSubmit">Query</button>
+		<button dojoAttachPoint="nextPageButton" dojoAttachEvent="onclick:nextPage" style="float:right">&gt;&gt;</button>
+		<button dojoAttachPoint="prevPageButton" dojoAttachEvent="onclick:prevPage" style="float:right">&lt;&lt;</button>
+		<br/>
+		<button dojoType="dijit.form.DropDownButton" label="Advanced">
+			<div dojoType="dijit.TooltipDialog">
+				Country:&nbsp;&nbsp;&nbsp;<input type="text" dojoAttachPoint="countryNode" size="20" style="margin-left:5px;" value=""/><br/>
+				Zip/Postal:<input type="text" dojoAttachPoint="postalNode" size="20" style="margin-left:5px;" value=""/>
+			</div>
+		</button>
+	</div>
+	<hr/>
+	<div dojoAttachPoint="resultInfo"></div>
+	<div id="resultContainer" dojoAttachPoint="resultContainer">
+	</div>
+</div>

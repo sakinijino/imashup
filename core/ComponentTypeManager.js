@@ -41,9 +41,9 @@ dojo.declare("imashup.core.Register", null, {
     _mixin : function(obj, props) {
         var tobj = {};
         for (var x in props)
-            if ((typeof obj[x] == "undefined") &&
-                (typeof tobj[x] == "undefined" || tobj[x] != props[x]))
-                obj[x] = props[x];
+          if ((typeof obj[x] == "undefined") &&
+            (typeof tobj[x] == "undefined" || tobj[x] != props[x]))
+            obj[x] = props[x];
     }
 });
 
@@ -114,17 +114,17 @@ dojo.declare("imashup.core.ComponentTypeManager", null, {
 imashup.core.componentTypeManager = new imashup.core.ComponentTypeManager
 
 dojo.subscribe('instance_manager/add',
-               function(comp){
-                   with (imashup.core.componentTypeManager) {
-                       if (types[comp.imashup_impl_name])
-                           types[comp.imashup_impl_name].instance_count++
-                   }
-               })
+  function(comp){
+    with (imashup.core.componentTypeManager) {
+      if (types[comp.imashup_impl_name])
+        types[comp.imashup_impl_name].instance_count++
+    }
+  })
 
 dojo.subscribe('instance_manager/beforeremove',
-               function(comp){
-                   with (imashup.core.componentTypeManager) {
-                       if (types[comp.imashup_impl_name])
-                           types[comp.imashup_impl_name].instance_count--
-                   }
-               })
+  function(comp){
+    with (imashup.core.componentTypeManager) {
+      if (types[comp.imashup_impl_name])
+        types[comp.imashup_impl_name].instance_count--
+    }
+  })

@@ -1,0 +1,67 @@
+<div class="channel">
+<table class="selectionTable" border=0
+	style="margin-left: 10px; margin-top: 10px; border-spacing:5px">
+	<tr>
+		<td rowspan=2><span>Publishers:</span></td>
+		<td><span>Instance:&nbsp;</span><select class="publisherList" dojoAttachPoint="publisherList"
+			dojoAttachEvent="onchange:changePublisher" style="width: 250px">
+		</select></td>
+		<td rowspan=2>
+		<button dojoAttachEvent="onclick:addPublisher">Set</button>
+		</td>
+	</tr>
+	<tr>
+		<td><span>Function:&nbsp;</span><select class="publisherFuncList"
+			dojoAttachPoint="publisherFuncList" style="width: 250px">
+		</select></td>
+	</tr>
+	<tr>
+		<td rowspan=2><span>Recievers:&nbsp;</span></td>
+		<td><span>Instance:&nbsp;</span><select class="recieverList" dojoAttachPoint="recieverList"
+			dojoAttachEvent="onchange:changeReciever" style="width: 250px">
+		</select></td>
+		<td rowspan=2>
+		<button dojoAttachEvent="onclick:addReciever">Set</button>
+		</td>
+	</tr>
+		<td><span>Function:&nbsp;</span><select class="recieverFuncList"
+			dojoAttachPoint="recieverFuncList" style="width: 250px">
+		</select></td>
+</table>
+<hr/>
+<table class="currentTable" border=0
+	style="margin-left: 10px; margin-top: 10px">
+	<tr>
+		<td style="width: 150px">Publisher List</td>
+	</tr>
+	<tr align=center>
+		<td><select class="currentPublisherList"
+			dojoAttachPoint="currentPublisherList" multiple=multiple
+			style="width: 420px; height: 50px">
+		</select></td>
+	</tr>
+	<tr>
+		<td style="width: 150px">Reciever List</td>
+	</tr>
+	<tr align=center>
+		<td><select class="currentRecieverList"
+			dojoAttachPoint="currentRecieverList" multiple=multiple
+			style="width: 420px; height: 50px">
+		</select></td>
+	</tr>
+	<tr class="currentTable_row_3" align=right>
+		<td>
+		<button dojoAttachEvent="onclick:removeSelected">Remove
+		Selected</button>
+		</td>
+	</tr>
+</table>
+<div id="CustomPublisherMethod" dojoAttachPoint="CPMDialog" dojoType="dijit.Dialog" title="Custom Method">
+	<textarea rows="10" cols="40" dojoAttachPoint="codeCPM" type="size:500; width:100px; overflow:scroll"></textarea><br/>
+	<button type="submit" dojoAttachEvent="onclick:setCPM">Confirm</button>
+</div>
+<div id="CustomRecieverMethod" dojoAttachPoint="CRMDialog" dojoType="dijit.Dialog" title="Custom Method">
+	<textarea rows="10" cols="40" dojoAttachPoint="codeCRM" type="size:500; width:100px; overflow:scroll"></textarea><br/>
+	<button type="submit" dojoAttachEvent="onclick:setCRM">Confirm</button>
+</div>
+</div>

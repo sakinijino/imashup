@@ -24,24 +24,24 @@
     var ctm = imashup.core.componentTypeManager;
     dojo.declare("im1", dijit._Widget, {});
     ctm.registerComponentType({
-        impl_name : 'im1',
-        interface: {
-            properties: {i:{type:'string'}, j:{type:'string'}},
-            methods: {},
-            events: {}
-        },
-        mixin_types: ['window']
-    });
+                    impl_name : 'im1',
+                    interface: {
+                        properties: {i:{type:'string'}, j:{type:'string'}},
+                        methods: {},
+                        events: {}
+                    },
+                    mixin_types: ['window']
+                });
    	dojo.declare("im2", dijit._Widget, {});
     ctm.registerComponentType({
-        impl_name : 'im2',
-        interface: {
-            properties: {i:{type:'string'}, j:{type:'string'}},
-            methods: {},
-            events: {}
-        },
-        mixin_types: ['window']
-    });
+                    impl_name : 'im2',
+                    interface: {
+                        properties: {i:{type:'string'}, j:{type:'string'}},
+                        methods: {},
+                        events: {}
+                    },
+                    mixin_types: ['window']
+                });
     
 
     dojo.addOnLoad(function(){
@@ -59,8 +59,8 @@
            	  	//ORDINARY UPDATE
            	  	var d = dijit.byId("docklet1");
            	  	d.updateComponentTypeEnumeration();
-								var cnt=0;
-								for (var i in d.componentTypeEnumeration) cnt++;
+				var cnt=0;
+				for (var i in d.componentTypeEnumeration) cnt++;
 				
            	  	t.is(cnt,2);
            	  	//DYNAMIC UPDATE, SHOULD BE CAPABLE TO FIND NEWLY-ADDED CLASS
@@ -128,34 +128,34 @@
            	  
            	  //CAUTION! THIS COULD TAKE QUITE A WHILE!
            	  function test_docklet_crazy_ADD_REMOVE(t){
-           	 	if(!confirm("Wanna something hot:) ???")) return;
+           	  	if(!confirm("Wanna something hot:) ???")) return;
            	  	
-           	 	console.log("CAUTION! THIS COULD TAKE QUITE A WHILE!");
-           	  var d = dijit.byId("docklet1");
-							var option1 = {
+           	  	console.log("CAUTION! THIS COULD TAKE QUITE A WHILE!");
+           	  	var d = dijit.byId("docklet1");
+				var option1 = {
        	  			"im1": true, 
        	  			"im2": false, 
        	  			"im": false
            	  	};
-							var anti_option1 = {
+				var anti_option1 = {
        	  			"im1": false,
        	  			"im2": true,  
        	  			"im": true
            	  	};
            	  	//CHECK REPEAT ADDING ACTION
-							d.setComponentTypeEnumeration(option1);
-							d.setComponentTypeEnumeration(option1);
+				d.setComponentTypeEnumeration(option1);
+				d.setComponentTypeEnumeration(option1);
 				
        	  		var o = d.componentTypeEnumeration["im1"];
        	  			t.t(o.flag);
        	  			t.f(o.pNode==null);
-       	  			o = d.componentTypeEnumeration["im2"];
+       	  		o = d.componentTypeEnumeration["im2"];
        	  			t.f(o.flag);
        	  			t.is(o.pNode,null);
            	  	
            	  	//CHECK REPEAT REMOVING ACTION
-           	 		d.setComponentTypeEnumeration(anti_option1);
-           	 		d.setComponentTypeEnumeration(anti_option1);
+           	 	d.setComponentTypeEnumeration(anti_option1);
+           	 	d.setComponentTypeEnumeration(anti_option1);
            	  	o = d.componentTypeEnumeration["im1"];
        	  			t.f(o.flag);
        	  			t.t(o.pNode==null);
@@ -169,16 +169,16 @@
            	  	
            	  	//CRAZY CHECK
            	  	for (var meaningless=0;meaningless<20;meaningless++){
-								d.setComponentTypeEnumeration(option1);
+					d.setComponentTypeEnumeration(option1);
 	           	 	d.setComponentTypeEnumeration(anti_option1);
            	  	}
-								o = d.componentTypeEnumeration["im1"];
+				o = d.componentTypeEnumeration["im1"];
        	  			t.f(o.flag);
        	  			t.t(o.pNode==null);
            	  	o = d.componentTypeEnumeration["im2"];
        	  			t.t(o.flag);
        	  			t.f(o.pNode==null);
-								o = d.componentTypeEnumeration["im"];
+				o = d.componentTypeEnumeration["im"];
            	  		//im is a fake class with NO icons, so it failed to establish
        	  			/*t.f(o.flag);
        	  			t.t(o.pNode==null);*/ // a default icon is given now
@@ -186,45 +186,39 @@
            	  },
            	  function test_docklet_imageLoading(t){
            	  	var d = dijit.byId("docklet1");
-								var option = {
+				var option = {
        	  			"im1": true, 
        	  			"im2": false, 
        	  			"im": false
            	  	};
            	  	//CHECK REPEAT ADDING ACTION
-								d.setComponentTypeEnumeration(option);
-								d.launchItem("im1");
-		
-								var o = d.componentTypeEnumeration["im1"];
-								t.is(o.pNode.domNode.className,"dojoxFisheyeListItemLaunched");
-		
-		        		d.closeItem("im1");
-								t.is(o.pNode.domNode.className,"dojoxFisheyeListItem");
-		
-		        		d.closeItem("im1");
-		        		d.removeItem("im1");
+				d.setComponentTypeEnumeration(option);
+				d.launchItem("im1");
+
+				var o = d.componentTypeEnumeration["im1"];
+					t.is(o.pNode.domNode.className,"dojoxFisheyeListItemLaunched");
+
+        		d.closeItem("im1");
+					t.is(o.pNode.domNode.className,"dojoxFisheyeListItem");
+
+        		d.closeItem("im1");
+        		d.removeItem("im1");
            	  },
            	  function test_docklet_launch(t){
            	  	var d = dijit.byId("docklet1");
-         				var option = {
+         var option = {
        	  			"im1": true, 
        	  			"im2": false, 
        	  			"im": false
            	  	};
            	  	//CHECK REPEAT ADDING ACTION
-								d.setComponentTypeEnumeration(option);
+				d.setComponentTypeEnumeration(option);
            	  	var ins = imashup.core.instanceManager.create('im1')
            	  	var o = d.componentTypeEnumeration["im1"];
-								t.is(o.pNode.domNode.className,"dojoxFisheyeListItemLaunched");
+					t.is(o.pNode.domNode.className,"dojoxFisheyeListItemLaunched");
 					 	  	imashup.core.instanceManager.destroy(ins.id)
-								t.is(o.pNode.domNode.className,"dojoxFisheyeListItem");
-           	  },
-           	  
-           	  /*function test_connWithPe(t){
-           	  	var d=dijit.byId('docklet1');
-           	  	var pe=dijit.byId('pe')
-           			pe.setFocusWidget(d);
-           	  }*/
+					t.is(o.pNode.domNode.className,"dojoxFisheyeListItem");
+           	  }
            ]
         );
         doh.run();

@@ -1,0 +1,17 @@
+<div>
+	<div class="googleweather">
+		<div class="googleweatheriput" style="margin:5px" dojoAttachPoint="inputContainer">
+			<input type="text" dojoAttachPoint="inputnode" size="20"/>
+			<button dojoAttachEvent="onclick:onsubmit">Weather Report</button>
+		</div>
+		<div class="googleweatherreport" dojoAttachPoint="reportnode" style="margin:5px 5px 15px 10px">
+		  <div>Weather Report for <span dojoAttachPoint="locationnode1"></span></div>
+		  <div><img dojoAttachPoint="icon"/></div>
+		  <div>Condition:<span dojoAttachPoint="condition"></span></div>
+          <div>Temperature:<span dojoAttachPoint="temp_c"></span></div>
+          <div>Humidity:<span dojoAttachPoint="humidity"></span></div>
+          <div>Wind_condition:<span dojoAttachPoint="wind_condition"></span></div>
+		</div>
+		<div dojoAttachPoint="errornode" style="display:none">No Response for <span dojoAttachPoint="locationnode2"></span></div>
+	</div>
+</div>

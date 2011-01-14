@@ -17,8 +17,8 @@ dojo.declare(
         imashup_webos_small_icon_url: dojo.moduleUrl("imashup.toolpanels", "templates/Desktop_small.png"),
         templatePath: dojo.moduleUrl("imashup.toolpanels", "templates/Desktop.html"),
 
-        wallpaperUrl: "",
-        wallpaperColor: "#555ACD",
+        wallpaperUrl: "wallpapers/default.jpg",
+        wallpaperColor: "#3C6EA4",
         wallpaperStyle: "center",//center
         
         dock : null,
@@ -67,8 +67,8 @@ dojo.declare(
 							this.resize(v);
 							this._maximized = true;
 						},
-            component.floatingpane.startup()
             this.addChild(component.floatingpane)
+            component.floatingpane.startup()
             component.floatingpane.bringToTop()
         },
         _addInstance : function(component){

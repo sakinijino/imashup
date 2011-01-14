@@ -1,11 +1,11 @@
-dojo.provide("imashup.components.gadget._Gadget");
+dojo.provide("imashup.components.gadgets._Gadget");
 
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 dojo.require("imashup.core.all");
 
 dojo.declare(
-    "imashup.components.gadget._Gadget",
+    "imashup.components.gadgets._Gadget",
     [dijit._Widget, dijit._Templated],
     {
         resizable: false,
@@ -28,13 +28,13 @@ dojo.declare(
     }
 );
 
-imashup.components.gadget.defGadget = function(name, params){
+imashup.components.gadgets.defGadget = function(name, params){
         dojo.declare(
-            "imashup.components.gadget."+name,
-            imashup.components.gadget._Gadget,
+            "imashup.components.gadgets."+name,
+            imashup.components.gadgets._Gadget,
             {
-                imashup_webos_large_icon_url: dojo.moduleUrl("imashup.components.gadget", "templates/"+name+"_large.png"),
-                imashup_webos_small_icon_url: dojo.moduleUrl("imashup.components.gadget", "templates/"+name+"_small.png"),
+                imashup_webos_large_icon_url: dojo.moduleUrl("imashup.components.gadgets", "templates/"+name+"_large.png"),
+                imashup_webos_small_icon_url: dojo.moduleUrl("imashup.components.gadgets", "templates/"+name+"_small.png"),
                 width:params.width,
                 iframe_height:params.height,
                 src:params.src,
@@ -44,7 +44,7 @@ imashup.components.gadget.defGadget = function(name, params){
         );
 
         imashup.core.componentTypeManager.registerComponentType({
-            impl_name : 'imashup.components.gadget.'+name,
+            impl_name : 'imashup.components.gadgets.'+name,
             interface: {
                 properties: {},
                 methods: {},

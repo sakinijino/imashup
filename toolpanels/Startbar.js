@@ -24,15 +24,15 @@ dojo.declare(
         templatePath: dojo.moduleUrl("imashup.toolpanels", "templates/Startbar.html"),
         
         categories: {},
-        color: "#f00", //fix me, not real
-        userDate: null,
 
         postCreate: function(){
+			this.inherited("postCreate", arguments);
             this.loadComponents();
-            this.refreshEra();
             dojo.subscribe("component_manager/register", this, "addComponent")
-            this.inherited("postCreate", arguments);
+            this.refreshEra();
         },
+
+		color: "",
 		
         loadComponents: function(){
             var _this = this;
@@ -61,23 +61,21 @@ dojo.declare(
 
         refreshEra: function(){ //TODO:CANLENDAR
             var t=this.time;
-            var _this = this;
             var interFunc=function(){
                 var gtm = new Date();
-                t.innerHTML=gtm.toLocaleString();
-                _this.userDate = gtm;
+                t.innerHTML = gtm.toLocaleString();//Why doesn't it work?
+				dijit.byId("startbar").timeButton.containerNode.childNodes[1].innerHTML = gtm.toLocaleString();
             }
             setInterval(interFunc,1000);
         }
     }
-);
+); 
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.toolpanels.Startbar',
     interface: {
         properties: {
-            color : {type:'string'},
-            userDate:{type:'date'}
+            color : {type:'string'}
         },
         methods: {},
         events: {}

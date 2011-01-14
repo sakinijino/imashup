@@ -1,4 +1,4 @@
-dojo.provide("imashup.components.Browser");
+dojo.provide("imashup.components.widgets.Browser");
 
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
@@ -6,11 +6,11 @@ dojo.require("imashup.core.all");
 dojo.require("dojo.io.script");
 
 dojo.declare(
-    "imashup.components.Browser",
+    "imashup.components.widgets.Browser",
     [dijit._Widget, dijit._Templated],
     {
-        imashup_webos_large_icon_url: dojo.moduleUrl("imashup.components", "templates/Browser_large.png"),
-        imashup_webos_small_icon_url: dojo.moduleUrl("imashup.components", "templates/Browser_small.png"),
+        imashup_webos_large_icon_url: dojo.moduleUrl("imashup.components.widgets", "templates/Browser_large.png"),
+        imashup_webos_small_icon_url: dojo.moduleUrl("imashup.components.widgets", "templates/Browser_small.png"),
 
         resizable: true,
         maxable:true,
@@ -19,7 +19,7 @@ dojo.declare(
         url: "http://www.google.com",
         
         imashup_human_name: "Browser",
-        imashup_catergories : ["WWW"],
+        imashup_catergories : ["Misc"],
 
         templateString: "<div><input size=40 dojoAttachPoint='bar'/><button dojoAttachPoint='gotobutton'>Goto</button><div dojoAttachPoint='webpage' /></div>",
 
@@ -54,18 +54,18 @@ dojo.declare(
 )
 
 if (dojo.isFF) {
-	imashup.components.Browser.prototype.imashup_webos_large_icon_url = dojo.moduleUrl("imashup.components", "templates/FF_large.png");
-	imashup.components.Browser.prototype.imashup_webos_small_icon_url = dojo.moduleUrl("imashup.components", "templates/FF_small.png");
-	imashup.components.Browser.prototype.imashup_human_name = "Firefox";
+	imashup.components.widgets.Browser.prototype.imashup_webos_large_icon_url = dojo.moduleUrl("imashup.components.widgets", "templates/FF_large.png");
+	imashup.components.widgets.Browser.prototype.imashup_webos_small_icon_url = dojo.moduleUrl("imashup.components.widgets", "templates/FF_small.png");
+	imashup.components.widgets.Browser.prototype.imashup_human_name = "Firefox";
 }
 if (dojo.isIE) {
-	imashup.components.Browser.prototype.imashup_webos_large_icon_url = dojo.moduleUrl("imashup.components", "templates/IE_large.png");
-	imashup.components.Browser.prototype.imashup_webos_small_icon_url = dojo.moduleUrl("imashup.components", "templates/IE_small.png");
-	imashup.components.Browser.prototype.imashup_human_name = "Internet Explorer";
+	imashup.components.widgets.Browser.prototype.imashup_webos_large_icon_url = dojo.moduleUrl("imashup.components.widgets", "templates/IE_large.png");
+	imashup.components.widgets.Browser.prototype.imashup_webos_small_icon_url = dojo.moduleUrl("imashup.components.widgets", "templates/IE_small.png");
+	imashup.components.widgets.Browser.prototype.imashup_human_name = "Internet Explorer";
 }
 
 imashup.core.componentTypeManager.registerComponentType({
-    impl_name : 'imashup.components.Browser',
+    impl_name : 'imashup.components.widgets.Browser',
     interface: {
         properties: {},
         methods: {},
