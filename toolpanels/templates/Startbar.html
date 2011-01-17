@@ -12,49 +12,6 @@
 					<div dojoType="dijit.MenuItem" dojoAttachPoint='setupDocklet'>Docklet Settings</div>
 				</div>
 			</div>
-			<div dojoType="dijit.form.DropDownButton">
-				<span>Login</span>
-				<div dojoType="dijit.TooltipDialog" title="Enter Login information">
-					<table>
-						<tr>
-							<td><label for="user">User:</label></td>
-							<td><input dojoType=dijit.form.TextBox type="text" name="user" ></td>
-						</tr>
-						<tr>
-							<td><label for="pwd">Password:</label></td>
-							<td><input dojoType=dijit.form.TextBox type="password" name="pwd"></td>
-						</tr>
-						<tr>
-							<td colspan="2" align="center">
-								<button dojoType=dijit.form.Button type="submit" name="submit">Login</button></td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<span dojoType="dijit.ToolbarSeparator">&nbsp;</span>
-			<div dojoType="dijit.form.DropDownButton">
-				<span>Logout</span>
-				<div dojoType="dijit.TooltipDialog" title="Confirm">
-					<table>
-						<tr>
-							<td><label for="shutdown">Shutdown</label></td>
-							<td><input type="radio" name="g1" id="shutdown" value="shutdown" dojoType="dijit.form.RadioButton"></td>
-						</tr>
-						<tr>
-							<td><label for="sleep">Sleep</label></td>
-							<td><input type="radio" name="g1" id="sleep" value="sleep" dojoType="dijit.form.RadioButton"></td>
-						</tr>
-						<tr>
-							<td><label for="logout">Logout</label></td>
-							<td><input type="radio" name="g1" id="logout" value="logout" dojoType="dijit.form.RadioButton"></td>
-						</tr>
-						<tr>
-							<td colspan="2" align="center">
-								<button dojoType=dijit.form.Button type="submit" name="submit">Roger!</button></td>
-						</tr>
-					</table>
-				</div>
-			</div>
 			<!--<div dojoType="dojox.layout.Dock" autoPosition = "south" dojoAttachPoint="dock" />-->
 			<div dojoType="dijit.form.Button" style="position:absolute;right:0;top:0;" dojoAttachPoint="timeButton">
 				<div dojoAttachPoint="time">coming...</div>

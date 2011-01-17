@@ -12,6 +12,7 @@
 5. Setup the base directory into a web server
 6. Open <base url>/imashup/index.html in web browser (Firefox is preferred)
 
+* An Online demo at http://imashup.sakinijino.com/
 * Manuals in ./docs/manuals/
 * Screen casts in ./screencasts/
 

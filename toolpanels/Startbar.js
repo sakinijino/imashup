@@ -63,8 +63,7 @@ dojo.declare(
             var t=this.time;
             var interFunc=function(){
                 var gtm = new Date();
-                t.innerHTML = gtm.toLocaleString();//Why doesn't it work?
-				dijit.byId("startbar").timeButton.containerNode.childNodes[1].innerHTML = gtm.toLocaleString();
+                dijit.byId("startbar").timeButton.containerNode.childNodes[1].innerHTML = dojo.date.locale.format(gtm, { datePattern: "yyyy-MM-dd HH:mm:ss", selector: "date"})
             }
             setInterval(interFunc,1000);
         }

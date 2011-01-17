@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<title>iMashup Web OS</title>
+	<style type="text/css">
+		@import "../dojo/resources/dojo.css";
+		@import "../dijit/themes/tundra/tundra.css";
+		@import "../dijit/themes/dijit.css";
+		 
+		@import "../imashup/toolpanels/templates/Desktop.css";
+		@import "../imashup/toolpanels/templates/Docklet.css";
+		@import "../imashup/toolpanels/templates/Startbar.css";
+		@import "../imashup/toolpanels/templates/DesktopIcon.css";
+		@import "../imashup/components/igrid/templates/iGrid.css";
+		
+		@import "../dojox/layout/resources/FloatingPane.css"; 
+		@import "../dojox/layout/resources/ResizeHandle.css"; 
+	</style>
+
+	<script type="text/javascript" src="../dojo/dojo.js" djConfig="parseOnLoad: true, isDebug: true"></script>
+	<script type="text/javascript" src="../imashup/configs/proxy.js"></script>
+	<script type="text/javascript">
+		dojo.require("imashup.toolpanels.PropertiesEditor");
+		dojo.require("imashup.toolpanels.Startbar");
+		dojo.require("imashup.toolpanels.Desktop");
+		dojo.require("imashup.toolpanels.Docklet");
+		dojo.require("imashup.components.all")
+		
+		dojo.addOnLoad(function(){
+		  dojo.connect(dijit.byId('docklet'),"setup",function(){
+			dijit.byId("pe").setFocusWidget(dijit.byId('docklet'));
+		  })
+		  dijit.byId("docklet").updateComponentTypeEnumeration();
+		  dojo.connect(dijit.byId("startbar").setupDesktop,"onClick",function(){
+			dijit.byId("pe").setFocusWidget(dijit.byId('desktop'));
+		  })
+		  dojo.connect(dijit.byId("startbar").setupDocklet,"onClick",function(){
+			dijit.byId("pe").setFocusWidget(dijit.byId('docklet'));
+		  })
+		})
+	</script>
+	
+	<!-- Script tag for APIs -->
+	<script type="text/javascript" src="http://www.douban.com/js/api.js?v=2"></script>
+	<script type="text/javascript" src="http://www.douban.com/js/api-parser.js?v=1"></script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="http://www.iplocationtools.com/iplocationtools.js?key=797b7921666561276c60"></script>
+  <script language="javascript" type="text/javascript" src="http://fw.qq.com/ipaddress"></script>
+  <!-- Script tag for APIs End -->
+</head>
+<body class="tundra">
+	<div id="desktop" dojoType="imashup.toolpanels.Desktop"></div>
+	<div id="startbar" dojoType="imashup.toolpanels.Startbar"></div>
+	<div id="docklet" dojoType="imashup.toolpanels.Docklet"></div>
+	<div id='pe' dojoType="imashup.toolpanels.PropertiesEditor"></div>
+</body>
+</html>
