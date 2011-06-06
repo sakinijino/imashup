@@ -9,7 +9,7 @@ dojo.declare(
     "imashup.components.widgets.Channel",
     [dijit._Widget, dijit._Templated],
     {
-		templatePath : dojo.moduleUrl("imashup.components.widgets", "templates/Channel.html"),
+    templatePath : dojo.moduleUrl("imashup.components.widgets", "templates/"+ (imashup.mobileMode ? "ChannelPhone" : "Channel") + ".html"),
 		imashup_webos_large_icon_url: dojo.moduleUrl("imashup.components.widgets", "templates/mashup_large.png"),
 		imashup_webos_small_icon_url: dojo.moduleUrl("imashup.components.widgets", "templates/mashup_small.png"),
 		

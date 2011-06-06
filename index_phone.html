@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<title>iMashup Web OS</title>
+	<style type="text/css">
+		@import "../dojo/resources/dojo.css";
+		@import "../dijit/themes/tundra/tundra.css";
+		@import "../dijit/themes/dijit.css";
+		 
+		@import "../imashup/toolpanels_phone/templates/Desktop.css";
+		@import "../imashup/toolpanels_phone/templates/Startbar.css";
+		@import "../imashup/components/igrid/templates/iGrid.css";
+		
+		@import "../dojox/layout/resources/FloatingPane.css"; 
+		@import "../dojox/layout/resources/ResizeHandle.css"; 
+	</style>
+
+	<script type="text/javascript" src="../dojo/dojo.js" djConfig="parseOnLoad: true"></script>
+	<script type="text/javascript" src="../imashup/configs/proxy.js"></script>
+	<script type="text/javascript">
+    imashup.mobileMode = true;
+		dojo.require("imashup.toolpanels_phone.Startbar");
+		dojo.require("imashup.toolpanels_phone.InstanceBar");
+		dojo.require("imashup.toolpanels_phone.Desktop");
+		dojo.require("imashup.components.all");
+	</script>
+	
+	<!-- Script tag for APIs -->
+	<script type="text/javascript" src="http://www.douban.com/js/api.js?v=2"></script>
+	<script type="text/javascript" src="http://www.douban.com/js/api-parser.js?v=1"></script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="http://www.iplocationtools.com/iplocationtools.js?key=797b7921666561276c60"></script>
+	<script language="javascript" type="text/javascript" src="http://fw.qq.com/ipaddress"></script>
+	<!-- Script tag for APIs End -->
+</head>
+<body class="tundra">
+	<div id="desktop" dojoType="imashup.toolpanels_phone.Desktop"></div>
+	<div id="startbar" dojoType="imashup.toolpanels_phone.Startbar"></div>
+	<div id="instancebar" dojoType="imashup.toolpanels_phone.InstanceBar"></div>
+</body>
+</html>

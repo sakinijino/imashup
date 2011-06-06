@@ -12,3 +12,5 @@ dojo.require("imashup.components.widgets.IPLocation");
 dojo.require("imashup.components.widgets.ImageSearch");
 dojo.require("imashup.components.widgets.EBay");
 dojo.require("imashup.components.widgets.Browser");
+dojo.require("imashup.components.widgets.Gobang");
+dojo.require("imashup.components.widgets.Contacts");

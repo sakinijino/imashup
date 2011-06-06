@@ -47,10 +47,10 @@ dojo.declare(
 		
 		onsubmit: function(){
 			var location = this.inputnode.value;
-			this.setLocation(location, true);
+			this.setLocation(location);
 		},
 		
-		setLocation: function(location, keep_input){
+		setLocation: function(location){
 			var _this = this;
       var url = 'http://www.google.com/ig/api'
       if (imashup.configs && imashup.configs.proxy) 
@@ -61,7 +61,7 @@ dojo.declare(
           handleAs:"xml",
           load: function(response, ioargs){
             if(response){
-              _this.setWeather(response, location, keep_input);
+              _this.setWeather(response, location);
             }
           },
           error: function(){
@@ -72,7 +72,7 @@ dojo.declare(
         });
     },
 
-    setWeather: function(weather, location, keep_input){
+    setWeather: function(weather, location){
       var weatherCurr = weather.childNodes[0].childNodes[0].childNodes[1];
       if(weather && weather.childNodes[0] && weather.childNodes[0].childNodes[0] &&
          weather.childNodes[0].childNodes[0].childNodes[1]){
@@ -84,7 +84,6 @@ dojo.declare(
            if (keys[key]) this[key].innerHTML = weatherCurr.childNodes[i].attributes.item("data").value;
            if (key == "icon") this.icon.src = this.url + weatherCurr.childNodes[i].attributes.item("data").value;
          }
-         if (!keep_input )this.inputContainer.style.display = "none";
          this.errornode.style.display = "none";
          this.reportnode.style.display = "";
        }else {

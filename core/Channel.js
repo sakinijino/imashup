@@ -81,6 +81,9 @@ dojo.declare("imashup.core.Channel", null, {
 		// Channel message = "channelName/channel_send"
 		var msg = this.name + "/channel_send";
 		dojo.publish(msg, arguments);
+    // Global Notification Message
+    var msg = "channel/send"
+    dojo.publish(msg, [this, arguments]);
 	},
 	
 	changeCPM: function (/* String */ ID, 

@@ -20,9 +20,9 @@ dojo.declare(
 		imashup_webos_small_icon_url: dojo.moduleUrl("imashup.components.widgets", "templates/map_small.png"),
 		templatePath: dojo.moduleUrl("imashup.components.widgets", "templates/GoogleMap.html"),
 		
-		resizable: true,
+		resizable: false,
 		maxable: false,
-		width: 650,
+		width: 410,
 		
 		imashup_human_name: "Google Map",
 		imashup_catergories: ['Search'],
@@ -35,18 +35,20 @@ dojo.declare(
 		geocoder:null,
 		
 		postCreate: function(){
+      this.mapContainer.style.width = imashup.mobileMode ? "" : "400px"
+      this.mapContainer.style.height = imashup.mobileMode ? this.getDesktopBox().h - 40 +"px" : "400px"
 			var latlng = new google.maps.LatLng(39.991893, 116.309954);
 			var myOptions = {
 				zoom: 10,
 				center: latlng,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
-            this.map = new google.maps.Map(this.mapContainer, myOptions);
+      this.map = new google.maps.Map(this.mapContainer, myOptions);
+
+      geocoder = new google.maps.Geocoder();
 			
-			geocoder = new google.maps.Geocoder();
-			
-			var list = this.id.split('_');
-			this.imashup_human_name += ' ' + list[list.length-1];
+      var list = this.id.split('_');
+      this.imashup_human_name += ' ' + list[list.length-1];
 		},
 		
 		onsubmit: function(){
@@ -186,5 +188,5 @@ imashup.core.componentTypeManager.registerComponentType({
 			"MarkerInfo" : { Function: "MarkerInfo", CustomMethod: "/* arguments[0]: String */" },
 		}
     },
-    mixin_types : ['window']
+    mixin_types : ['window', 'sizable']
 });

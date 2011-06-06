@@ -1,0 +1,40 @@
+<div>
+  <div class="contacts" style="margin:10px">
+    <button dojoAttachEvent="onclick:onnew">New Person</button>
+		<hr/>
+		<table class="resultTable">
+			<tbody>
+				<tr>
+					<td class="nameList" style="width:130px">
+						<select size="15" dojoAttachPoint="nameList" style="width:130px;height:200px" dojoAttachEvent="onchange:changeSelected">
+						</select>
+					</td>
+					<td style="vertical-align:baseline">
+						<div class="add" dojoAttachPoint="addPanel" style="padding-left:10px; display:none">
+              Name:<br /><input type="text" dojoAttachPoint="input_name" size="30" style="margin-left:5px;"/><br />
+              Email:<br /><input type="text" dojoAttachPoint="input_email" size="30" style="margin-left:5px;"/><br />
+              Phone:<br /><input type="text" dojoAttachPoint="input_phone" size="30" style="margin-left:5px;"/><br />
+              City:<br /><input type="text" dojoAttachPoint="input_city" size="30" style="margin-left:5px;"/><br />
+              <br/>
+              <button dojoAttachPoint="submitButton" dojoAttachEvent="onclick:onsubmit">Submit</button>
+              <button dojoAttachPoint="cancelButton" dojoAttachEvent="onclick:oncancel">Cancel</button>
+            </div>
+					</td>
+					<td style="vertical-align:baseline">
+            <div class="result" dojoAttachPoint="result" style="padding-left:10px; display:none">
+              <h1 dojoAttachPoint="result_name" style="margin:0;"></h1><br/>
+              <table>
+                <tr><td>Email: </td><td dojoAttachPoint="result_email"></td></tr>
+                <tr><td>Phone: </td><td dojoAttachPoint="result_phone"></td></tr>
+                <tr><td>City: </td><td dojoAttachPoint="result_city"></td></tr>
+              </table>
+              <br/>
+              <button dojoAttachPoint="updateButton" dojoAttachEvent="onclick:onupdate">Update</button>
+              <button dojoAttachPoint="deleteButton" dojoAttachEvent="onclick:ondelete">Delete</button>
+            </div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

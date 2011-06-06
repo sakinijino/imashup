@@ -2,6 +2,9 @@
 dojo.provide('imashup.mixins.SizableComponent')
 
 dojo.declare("imashup.mixins.SizableComponent", null, {
+    getDesktopBox: function(){
+      return dojo.position(dijit.byId("desktop").wall);
+    },
     getCssHeight : function() {
         return this.domNode.style.height;
     },

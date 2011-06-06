@@ -1,0 +1,7 @@
+.imashupDesktop {
+	width:100%; position:absolute; z-index:0; top:0px; left:0px;
+}
+
+.imashupDesktop .imashupWindow {
+	z-index: 20;
+}
