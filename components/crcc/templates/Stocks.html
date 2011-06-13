@@ -1,0 +1,42 @@
+<div>
+  <style>
+    div.stocks { color: #fff; font-size:14px }
+    div.stocks div.cl {clear:both}
+    div.stocks div.input {margin: 5px}
+    div.stocks div.input button.setting {float:right}
+    div.stocks div.report {margin: 10px; display: none; }
+    div.stocks div.report div.info {float:left; width: 40%; margin: 5px 10px}
+    div.stocks div.report div.name {font-size:22px; font-weight:bold;}
+    div.stocks div.report div.number{font-size:16px;}
+    div.stocks div.report div.data {float:left; margin-top:5px;}
+    div.stocks div.report div.data ul {margin: 0; padding: 0;}
+    div.stocks div.report div.data.up {color: red}
+    div.stocks div.report div.data.down {color: #61E300}
+    div.stocks div.report div.data li.price {font-size:18px}
+  </style>
+	<div class="stocks">
+		<div class="input" dojoAttachPoint="inputContainer">
+			<button class="setting" dojoAttachEvent="onclick:onset">Setting</button>
+			<input type="text" dojoAttachPoint="inputnode" size="20"/>
+			<button dojoAttachEvent="onclick:onsubmit">Save</button>
+      <div class="cl"></div>
+		</div>
+		<div class="report" dojoAttachPoint="reportnode">
+      <div class="info">
+        <div dojoAttachPoint="name" class="name"></div>
+        <div dojoAttachPoint="number" class="number"></div>
+      </div>
+      <div dojoAttachPoint="dataPanel" class="data">
+        <ul>
+          <li dojoAttachPoint="price" class="price"></li>
+          <li dojoAttachPoint="rate"></li>
+          <li dojoAttachPoint="date"></li>
+        </ul>
+      </div>
+      <div class="cl"></div>
+    </div>
+		<div class="report" dojoAttachPoint="errornode">No Response for <span dojoAttachPoint="errornum"></span></div>
+	</div>
+</div>
+
+

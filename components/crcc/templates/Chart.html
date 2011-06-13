@@ -1,0 +1,21 @@
+﻿<div>
+  <style>
+    div.chart { color: #fff; font-size:14px;}
+    div.chart div.cl {clear:both}
+    div.chart div.inputPanel {margin: 5px}
+    div.chart div.inputPanel button.setting {float:right; margin-right: 15px}
+    div.chart div.canvas { text-align:center; margin-top:5px; height: 190px; overflow:hidden}
+    div.chart canvas {margin:auto; width: 200px; height: 200px;}
+  </style>
+	<div class="chart">
+		<div class="inputPanel" style="margin:5px" dojoAttachPoint="inputContainer">
+			<button class="setting" dojoAttachEvent="onclick:onset">Setting</button>
+			<input type="text" dojoAttachPoint="inputnode" size="20" value="[{name:'北京',value:15},{name:'上海',value:12},{name:'广州',value:10},{name:'重庆',value:3}]" />
+			<button dojoAttachEvent="onclick:onsubmit">Generate Chart</button>
+      <div class="cl"></div>
+		</div>
+		<div class="canvas">
+			<canvas width="200px" height="200px" dojoAttachPoint="canvas" dojoAttachEvent="onclick:handleChartClick"></canvas>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,94 @@
+<div>
+  <style>
+    div.googleweather { color: #fff }
+    div.googleweather div.cl {clear:both}
+    div.googleweather div.input {margin: 5px}
+    div.googleweather div.input button.setting {float:right}
+    div.googleweather div.report {margin: 10px 5px 10px 15px; display: none; }
+    div.googleweather div.report label.city {font-size:16px; font-weight:bold; display:block; margin: 5px 0px;}
+  </style>
+	<div class="googleweather">
+		<div class="input" dojoAttachPoint="inputContainer">
+			<button class="setting" dojoAttachEvent="onclick:onset">Setting</button>
+			<input type="text" dojoAttachPoint="inputnode" size="20"/>
+			<button dojoAttachEvent="onclick:onsubmit">Save</button>
+      <div class="cl"></div>
+		</div>
+		<div class="report" dojoAttachPoint="reportnode">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" height="100%">
+        <tbody><tr align="center" valign="top">
+            <td>
+              <table cellpadding="0" cellspacing="0" border="0">
+                <tbody>
+                  <tr align="left" valign="top">
+                    <td width="12%">
+                      <label class="city" dojoAttachPoint="locationnode1"></label>
+                    </td>
+                  </tr>
+                  <tr align="left" valign="top">
+                    <td align="left">
+                      <div>
+                        <img dojoAttachPoint="icon"/>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr align="left" valign="top">
+                    <td>
+                      <label dojoAttachPoint="temp_c"></label>℃ - <label dojoAttachPoint="condition"></label><br>
+                      <label dojoAttachPoint="humidity"></label><br>
+                      <label dojoAttachPoint="wind_condition"></label>
+                    </td>
+                  </tr>
+              </tbody></table>
+            </td>
+            <td width="154">
+              <div dojoAttachPoint="weather-2">
+                <table cellpadding="0" cellspacing="0" border="0" width="144" height="100%">
+                  <tbody>
+                    <tr align="center" valign="middle">
+                      <td><img></td>
+                      <td width="70"><label></label><br><label></label>℃</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div dojoAttachPoint="weather-3">
+                <table cellpadding="0" cellspacing="0" border="0" width="144" height="100%">
+                  <tbody>
+                    <tr align="center" valign="middle">
+                      <td><img></td>
+                      <td width="70"><label></label><br><label></label>℃</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div dojoAttachPoint="weather-4">
+                <table cellpadding="0" cellspacing="0" border="0" width="144" height="100%">
+                  <tbody>
+                    <tr align="center" valign="middle">
+                      <td><img></td>
+                      <td width="70"><label></label><br><label></label>℃</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div dojoAttachPoint="weather-5">
+                <table cellpadding="0" cellspacing="0" border="0" width="144" height="100%">
+                  <tbody>
+                    <tr align="center" valign="middle">
+                      <td><img></td>
+                      <td width="70"><label></label><br><label></label>℃</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+		<div class="report" dojoAttachPoint="errornode">No Response for <span dojoAttachPoint="locationnode2"></span></div>
+	</div>
+</div>
+
+

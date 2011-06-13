@@ -1,0 +1,68 @@
+﻿<div>
+  <style>
+    div.todos{ margin-top: 10px }
+    div.todos div.cl {clear:both}
+    div.todos div.list {margin: 5px; display:none;}
+    div.todos div.list button.new {float:right; margin-right: 10px;}
+    div.todos div.list ul.nav { list-style: none outside none; margin: 0; padding: 0; }
+    div.todos div.list ul.nav li { display: inline; float: left; width: 82px; cursor: pointer; height: 20px; padding-left: 15px; padding-top: 7px; }
+    div.todos div.list ul.nav li.activeTitle { background: url("../imashup/components/crcc/templates/todos_tab_active.png") no-repeat scroll 0 0 transparent; font-weight: bold; }
+    div.todos div.list ul.nav li.inactiveTitle { background: url("../imashup/components/crcc/templates/todos_tab_inactive.png") no-repeat scroll 0 0 transparent; }
+
+    div.todos div.list table.list {border-color: #D3DFEF; border-style: solid; border-width: 0 1px 1px 0; line-height: 22px; table-layout: fixed; width:100%}
+    div.todos div.list table.list tr.listHeader { background-image: url("../imashup/components/crcc/templates/todos_theader_bg.jpg"); padding: 0; text-align: center; }
+    div.todos div.list table.list tr.listHeader th {border-color: #D3DFEF; border-style: solid; border-width: 0 1px 1px 0; font-weight: normal; height: 24px; overflow: hidden; padding: 0 5px; white-space: nowrap; }
+    div.todos div.list table.list tr.row_odd {background-color: #EAF0F8}
+    div.todos div.list table.list tr.row_even {background-color: white}
+    div.todos div.list table.list tr.done {text-decoration:line-through}
+    div.todos div.list table.list td {border-color: #D3DFEF; border-style: solid; border-width: 0 1px 1px 0; height: 24px; overflow: hidden; padding: 0 5px; white-space: nowrap; }
+    div.todos div.list table.list td.del {cursor: pointer;}
+
+    div.todos div.list table.footer {border-color: #D3DFEF; border-style: solid; border-width: 0 1px 1px 0; line-height: 22px; table-layout: fixed; width:100%}
+    div.todos div.list table.footer tr { background-image: url("../imashup/components/crcc/templates/todos_theader_bg.jpg"); padding: 0; text-align: center; }
+
+    div.todos div.new {margin: 5px 10px; display:none;}
+    div.todos div.new textarea {margin-top: 5px;}
+  </style>
+	<div class="todos">
+		<div class="list" dojoAttachPoint="listPanel">
+      <ul class="nav">
+      	<li class="activeTitle" dojoAttachEvent="onclick:ontodo">我的待办</li>
+      	<li class="inactiveTitle" dojoAttachEvent="onclick:ondone">我的已办</li>
+      </ul>
+			<button dojoAttachEvent="onclick:onnew" class="new">新建</button>
+      <div class="cl"></div>
+      <table cellspacing="0" cellpadding="0" border="0" class="list">
+        <thead>
+          <tr class="listHeader">
+            <th width="20"></th>
+            <th>工作摘要</th>
+            <th width="70">创建日期</th>
+            <th width="70">办理时限</th>
+            <th width="20"></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <table cellspacing="0" cellpadding="0" border="0"  class="footer">
+        <tbody>
+          <tr>
+            <td width="20" title="上一页"><img dojoAttachEvent="onclick:onprev" src="../imashup/components/crcc/templates/todos_previous.gif"></td>
+            <td width="20" title="下一页"><img dojoAttachEvent="onclick:onnext" src="../imashup/components/crcc/templates/todos_next.gif"></td>
+            <td><font color="#6d6d6d">共<span dojoAttachPoint="totalNum">0</span>条记录</font></td>
+          </tr>
+        </tbody>
+      </table>
+		</div>
+    <div dojoAttachPoint="newPanel" class="new">
+      工作摘要:<br /><textarea dojoAttachPoint="summary" rows="4" cols="50"></textarea><br /><br />
+      办理时限:<br /><input type="text" dojoAttachPoint="deadline" size="10" dojoType="dijit.form.DateTextBox"/><br />
+      <br/>
+      <button dojoAttachEvent="onclick:onsubmit">创建</button>
+      <button dojoAttachEvent="onclick:oncancel">取消</button>
+    </div>
+	</div>
+</div>
+
+

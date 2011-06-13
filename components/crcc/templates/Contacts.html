@@ -1,0 +1,58 @@
+﻿<div>
+  <style>
+    div.contacts{margin:0 10px}
+    div.contacts div.cl {clear:both}
+    div.contacts div.list {margin: 8px; width: 30%; float:left}
+    div.contacts div.list button.new {margin-bottom: 5px}
+
+    div.contacts div.list table.list {border-color: #D3DFEF; border-style: solid; border-width: 0 1px 1px 1px; line-height: 22px; table-layout: fixed; width:100%}
+    div.contacts div.list table.list tr.listHeader { background-image: url("../imashup/components/crcc/templates/contacts_theader_bg.jpg"); padding: 0; text-align: center; }
+    div.contacts div.list table.list tr.listHeader th {font-weight: normal; height: 24px; overflow: hidden; padding: 0 5px; white-space: nowrap; }
+    div.contacts div.list table.list tbody tr {cursor: pointer}
+    div.contacts div.list table.list tr.row_odd {background-color: #EAF0F8}
+    div.contacts div.list table.list tr.row_even {background-color: white}
+    div.contacts div.list table.list td {border-color: #D3DFEF; border-style: solid; border-width: 0 1px 1px 0; height: 24px; overflow: hidden; padding: 0 5px; white-space: nowrap; }
+
+    div.contacts div.detail {margin: 28px 0 0 10px; float:left; width: 60%}
+    div.contacts div.detail div.add, div.contacts div.detail div.result {padding:0 10px; display:none}
+    div.contacts div.detail div.add input { display: inline-block; margin: 2px 0 5px }
+    div.contacts div.detail div.result h1 { margin-top: 0px }
+    div.contacts div.detail div.result table {line-height: 1.5em; }
+  </style>
+  <div class="contacts">
+    <div dojoAttachPoint="listPanel" class="list">
+      <button class="new" dojoAttachEvent="onclick:onnew">新建联系人</button>
+      <table cellspacing="0" cellpadding="0" border="0" class="list">
+        <thead>
+          <tr class="listHeader">
+            <th>姓名</th>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    <div class="detail">
+      <div class="add" dojoAttachPoint="addPanel">
+        姓名:<br /><input type="text" dojoAttachPoint="input_name" size="25"/><br />
+        电子邮件:<br /><input type="text" dojoAttachPoint="input_email" size="25"/><br />
+        电话:<br /><input type="text" dojoAttachPoint="input_phone" size="25"/><br />
+        所在城市:<br /><input type="text" dojoAttachPoint="input_city" size="25"/><br />
+        <br/>
+        <button dojoAttachPoint="submitButton" dojoAttachEvent="onclick:onsubmit">保存</button>
+        <button dojoAttachPoint="cancelButton" dojoAttachEvent="onclick:oncancel">取消</button>
+      </div>
+      <div class="result" dojoAttachPoint="result">
+        <h1 dojoAttachPoint="result_name"></h1><br/>
+        <table>
+          <tr><td>电子邮件: </td><td dojoAttachPoint="result_email"></td></tr>
+          <tr><td>电话: </td><td dojoAttachPoint="result_phone"></td></tr>
+          <tr><td>所在城市: </td><td dojoAttachPoint="result_city"></td></tr>
+        </table>
+        <br/>
+        <button dojoAttachPoint="updateButton" dojoAttachEvent="onclick:onupdate">修改</button>
+        <button dojoAttachPoint="deleteButton" dojoAttachEvent="onclick:ondelete">删除</button>
+      </div>
+    </div>
+    <div class="cl"></div>
+	</div>
+</div>

@@ -1,0 +1,15 @@
+<div>
+  <style type="text/css">
+    div.googlemap div.input button.setting {float:right}
+    div.googlemap div.cl {clear:both}
+  </style>
+	<div class="googlemap">
+		<div class="input" style="margin:5px" dojoAttachPoint="inputContainer">
+			<button class="setting" dojoAttachEvent="onclick:onset">Setting</button>
+			<input type="text" dojoAttachPoint="inputnode" size="20"/>
+			<button dojoAttachEvent="onclick:onsubmit">Save</button>
+      <div class="cl"></div>
+		</div>
+		<div dojoAttachPoint="mapContainer" style="margin:0 5px;"></div>
+	</div>
+</div>
