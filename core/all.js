@@ -7,3 +7,5 @@ dojo.require('imashup.core.Channel');
 
 dojo.require('imashup.core.LocalStorage');
 dojo.require('imashup.core.LocalStorageManager');
+
+dojo.require('imashup.core.InterfaceAdapter');

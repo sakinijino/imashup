@@ -27,6 +27,7 @@ dojo.declare(
         //this.loadComponents();
         //dojo.subscribe("component_manager/register", this, "addComponent")
         this.refreshEra();
+		this.highlightEra();
 
         //dojo.subscribe("instance_manager/add", this, "_addInstance");
         //dojo.subscribe("instance_manager/beforeremove", this, "_removeInstance");
@@ -35,10 +36,29 @@ dojo.declare(
       color: "",
 
       instanceConnection: null,
+	  taskButtonHighlight: false,
+	  taskButtonHighlightColor: "",
 
       _notifyChannelSend : function(){
-        this.taskButton.domNode.style.backgroundColor = "#FBEE99"
+        //this.taskButton.domNode.style.backgroundColor = "#FBEE99";
+		this.taskButtonHighlight = true;
       },
+	  
+	  highlightEra: function() {
+	    var self = this;
+		var interFunc=function(){
+		  if(self.taskButtonHighlight == false)
+		    return;
+		  self.taskButton.domNode.style.backgroundColor = self. taskButtonHighlightColor
+		  
+		  if(self.taskButtonHighlightColor == "")
+		    self.taskButtonHighlightColor = "#FFFF00";
+		  else
+		    self.taskButtonHighlightColor = "";
+        }
+        setInterval(interFunc, 500);
+	  },
+	  
       /*
        _addInstance: function(component) {
        this.instanceTitle.set('label', component.imashup_human_name);
@@ -80,7 +100,8 @@ dojo.declare(
 		*/
 
       initTaskMgr: function() {
-        this.taskButton.domNode.style.backgroundColor = ""
+        //this.taskButton.domNode.style.backgroundColor = ""
+		this.taskButtonHighlight = false;
         dijit.byId("desktop").initTaskMgr();
         dijit.byId("instancebar").initTaskMgr();
       },
@@ -97,7 +118,7 @@ dojo.declare(
           dijit.byId("startbar").timeButton.containerNode.childNodes[1].innerHTML = dojo.date.locale.format(gtm, { datePattern: "yyyy-MM-dd HH:mm:ss", selector: "date"})
         }
         setInterval(interFunc,1000);
-      }
+      },
     }
   ); 
 

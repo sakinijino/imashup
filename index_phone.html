@@ -3,6 +3,9 @@
 <html>
 <head>
 	<title>iMashup Web OS</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<style type="text/css">
 		@import "../dojo/resources/dojo.css";
 		@import "../dijit/themes/tundra/tundra.css";
@@ -19,11 +22,14 @@
 	<script type="text/javascript" src="../dojo/dojo.js" djConfig="parseOnLoad: true"></script>
 	<script type="text/javascript" src="../imashup/configs/proxy.js"></script>
 	<script type="text/javascript">
-    imashup.mobileMode = true;
+		imashup.mobileMode = true;
 		dojo.require("imashup.toolpanels_phone.Startbar");
 		dojo.require("imashup.toolpanels_phone.InstanceBar");
 		dojo.require("imashup.toolpanels_phone.Desktop");
 		dojo.require("imashup.components.all");
+    dojo.addOnLoad(function(){
+        dojo.subscribe("instance_manager/add", imashup.core.interfaceAdapter, "onCreate");
+		})
 	</script>
 	
 	<!-- Script tag for APIs -->

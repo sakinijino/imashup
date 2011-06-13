@@ -53,6 +53,7 @@ dojo.declare(
             var startbar_height = 20
             component.floatingpane.domNode.className += " imashupWindow";
             component.floatingpane.domNode.style.top = startbar_height+"px";
+            if (component.bgPath != null) component.floatingpane.containerNode.style.backgroundImage = "url(" + component.bgPath +")";
             component.floatingpane.maximize = function(){
 							if(this._maximized){ return; }
 							this._naturalState = dojo.coords(this.domNode);
@@ -66,7 +67,7 @@ dojo.declare(
 							v.h = v.h-startbar_height
 							this.resize(v);
 							this._maximized = true;
-						},
+						}
             this.addChild(component.floatingpane)
             component.floatingpane.startup()
             component.floatingpane.bringToTop()

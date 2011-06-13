@@ -200,3 +200,15 @@ imashup.core.componentTypeManager.registerComponentType({
     },
     mixin_types : ['window']
 });
+
+imashup.core.interfaceAdapter.register(
+	"imashup.components.widgets.DoubanMovies",
+	{
+		points: ["inputArea", "resultList", "resultArea"],
+		events: {
+			"findMovie": "resultList",
+			"display": "resultArea"
+		}
+	}
+)
+
