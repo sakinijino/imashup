@@ -1,0 +1,82 @@
+﻿<div>
+  <style>
+    div.inbox{ margin-top: 10px }
+    div.inbox div.cl {clear:both}
+    div.inbox div.list {margin: 5px; display:none;}
+    div.inbox div.list button.new {float:right; margin-right: 10px;}
+    div.inbox div.list ul.nav { list-style: none outside none; margin: 0; padding: 0; }
+    div.inbox div.list ul.nav li { display: inline; float: left; width: 82px; cursor: pointer; height: 20px; padding-left: 15px; padding-top: 7px; }
+    div.inbox div.list ul.nav li.activeTitle { background: url("../imashup/components/crcc/templates/todos_tab_active.png") no-repeat scroll 0 0 transparent; font-weight: bold; }
+    div.inbox div.list ul.nav li.inactiveTitle { background: url("../imashup/components/crcc/templates/todos_tab_inactive.png") no-repeat scroll 0 0 transparent; }
+
+    div.inbox div.list table.list {border-color: #D3DFEF; border-style: solid; border-width: 0 1px 1px 0; line-height: 22px; table-layout: fixed; width:100%}
+    div.inbox div.list table.list tr.listHeader { background-image: url("../imashup/components/crcc/templates/todos_theader_bg.jpg"); padding: 0; text-align: center; }
+    div.inbox div.list table.list tr.listHeader th {border-color: #D3DFEF; border-style: solid; border-width: 0 1px 1px 0; font-weight: normal; height: 24px; overflow: hidden; padding: 0 5px; white-space: nowrap; }
+    div.inbox div.list table.list tr.row_odd {background-color: #EAF0F8}
+    div.inbox div.list table.list tr.row_even {background-color: white}
+    div.inbox div.list table.list tr.unread {font-weight: bold;}
+    div.inbox div.list table.list td {border-color: #D3DFEF; border-style: solid; border-width: 0 1px 1px 0; height: 24px; overflow: hidden; padding: 0 5px; white-space: nowrap; }
+    div.inbox div.list table.list td.tl {cursor: pointer;}
+    div.inbox div.list table.list td.del {cursor: pointer;}
+
+    div.inbox div.list table.footer {border-color: #D3DFEF; border-style: solid; border-width: 0 1px 1px 0; line-height: 22px; table-layout: fixed; width:100%}
+    div.inbox div.list table.footer tr { background-image: url("../imashup/components/crcc/templates/todos_theader_bg.jpg"); padding: 0; text-align: center; }
+
+    div.inbox div.new {margin: 5px 10px; display:none;}
+    div.inbox div.new textarea {margin-top: 5px;}
+    
+    div.inbox div.detail {margin: 5px 10px; display:none;}
+    div.inbox div.detail table {margin: 2px;}
+    div.inbox div.detail div.content {border: #D3DFEF solid 1px; margin: 10px 5px; padding: 8px;}
+  </style>
+	<div class="inbox">
+		<div class="list" dojoAttachPoint="listPanel">
+      <ul class="nav">
+      	<li class="activeTitle" >全部邮件</li>
+      </ul>
+			<button dojoAttachEvent="onclick:onnew" class="new">发邮件</button>
+      <div class="cl"></div>
+      <table cellspacing="0" cellpadding="0" border="0" class="list">
+        <thead>
+          <tr class="listHeader">
+            <th>标题</th>
+            <th width="70">发信人</th>
+            <th width="70">办理时限</th>
+            <th width="20"></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <table cellspacing="0" cellpadding="0" border="0"  class="footer">
+        <tbody>
+          <tr>
+            <td width="20" title="上一页"><img dojoAttachEvent="onclick:onprev" src="../imashup/components/crcc/templates/todos_previous.gif"></td>
+            <td width="20" title="下一页"><img dojoAttachEvent="onclick:onnext" src="../imashup/components/crcc/templates/todos_next.gif"></td>
+            <td><font color="#6d6d6d">共<span dojoAttachPoint="totalNum">0</span>条记录</font></td>
+          </tr>
+        </tbody>
+      </table>
+		</div>
+    <div dojoAttachPoint="newPanel" class="new">
+      收件人:<br /><select dojoAttachPoint="reciever_input"></select><br /><br />
+      标题:<br /><input type="text" dojoAttachPoint="title_input" size="25"/><br /><br />
+      内容:<br /><textarea dojoAttachPoint="content_input" rows="4" cols="50"></textarea><br /><br />
+      <br/>
+      <button dojoAttachEvent="onclick:onsubmit">发送</button>
+      <button dojoAttachEvent="onclick:oncancel">取消</button>
+    </div>
+    <div class="detail" dojoAttachPoint="detailPanel">
+      <table>
+        <tr><td>发件人: </td><td dojoAttachPoint="detail_sname"></td></tr>
+        <tr><td>发送时间: </td><td dojoAttachPoint="detail_ctime"></td></tr>
+        <tr><td>标题: </td><td dojoAttachPoint="detail_title"></td></tr>
+      </table>
+      <div class="content" dojoAttachPoint="detail_content"></div>
+      <button dojoAttachEvent="onclick:onback">返回</button>
+      <button dojoAttachEvent="onclick:ondelete">删除</button>
+    </div>
+	</div>
+</div>
+
+

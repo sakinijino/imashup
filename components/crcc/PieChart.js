@@ -28,23 +28,26 @@ dojo.declare(
 			var ctx;
 			var lastend = 0;
 			var myTotal = getTotal(myData);
-      var h = 80; var w = 100;
 
 			canvas = this.canvas;
 			ctx = canvas.getContext("2d");
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.font = '12px sans-serif'
+      ctx.font = '12px sans-serif';
+
+      var h = canvas.height/2; 
+      var w = canvas.width/2;
+      var r = 70;
 
 			for (var i = 0; i < myData.length; i++) {
 				ctx.fillStyle = myColor[i%5];
 				ctx.beginPath();
 				ctx.moveTo(w,h);
-				ctx.arc(w,h,70,lastend,lastend+
+				ctx.arc(w,h,r,lastend,lastend+
 					(Math.PI*2*(myData[i].value/myTotal)),false);
 				ctx.fill();
 				middleAngle = lastend+(Math.PI*(myData[i].value/myTotal));
-				var mx = w + 45*Math.cos(middleAngle);
-				var my = h + 45*Math.sin(middleAngle);
+				var mx = w + (r-5)*Math.cos(middleAngle);
+				var my = h + (r-5)*Math.sin(middleAngle);
 				ctx.beginPath();
 				ctx.lineWidth=1;
 				ctx.moveTo(mx,my);

@@ -8,3 +8,4 @@ dojo.require("imashup.components.crcc.BarChart");
 dojo.require("imashup.components.crcc.GoogleMap");
 dojo.require("imashup.components.crcc.Todos");
 dojo.require("imashup.components.crcc.Contacts");
+dojo.require("imashup.components.crcc.Inbox");
