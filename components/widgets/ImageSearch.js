@@ -124,7 +124,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.widgets.ImageSearch',
-    interface: {
+    "interface": {
         properties: {},
         methods: {
 			"searchImage": { Function: "searchImage", CustomMethod: "/* arguments[0]: String */" }

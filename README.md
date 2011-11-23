@@ -13,7 +13,8 @@ Quick Start
      * dojox
      * imashup
      * util
-5. Setup the base directory into a web server
+5. Build `build.sh action=release profileFile=../../imashup/build.profile.js`. 
+5. Setup the release directory into a web server
 6. Open \<base url\>/imashup/index.html in web browser (Firefox is preferred)
 
 Links

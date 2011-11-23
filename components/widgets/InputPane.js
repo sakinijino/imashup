@@ -46,7 +46,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.widgets.InputPane',
-    interface: {
+    "interface": {
         properties: {},
         methods: {},
         events: {

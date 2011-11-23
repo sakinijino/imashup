@@ -186,7 +186,7 @@ dojo.declare(
 	
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.widgets.DoubanMovies',
-    interface: {
+    "interface": {
         properties: {},
         methods: {
 			"FindMovie" : { Function: "findMovie", CustomMethod: "/* arguments[0]: String */" },

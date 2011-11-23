@@ -221,7 +221,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.widgets.Tudou',
-    interface: {
+    "interface": {
         properties: {},
         methods: {
 			"searchVideo": { Function: "searchVideo", CustomMethod: "/* arguments[0]: String */" },

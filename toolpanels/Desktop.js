@@ -145,7 +145,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.toolpanels.Desktop',
-    interface: {
+    "interface": {
         properties: {
             wallpaperColor : {type:'string', humanname:"Wall Paper Color"},
             wallpaperUrl : {type:'string', humanname:"Wall Paper Image URL"}

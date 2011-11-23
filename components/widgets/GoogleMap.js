@@ -170,7 +170,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.widgets.GoogleMap',
-    interface: {
+    "interface": {
         properties: {},
         methods: {
 			"setLocation" : { Function: "setLocation", CustomMethod: "/* arguments[0]: String */" },

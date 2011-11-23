@@ -72,7 +72,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.toolpanels.Startbar',
-    interface: {
+    "interface": {
         properties: {
             color : {type:'string'}
         },
