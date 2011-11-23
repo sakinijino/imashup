@@ -155,7 +155,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.toolpanels.Docklet',
-    interface: {
+    "interface": {
       properties: {
         componentTypeEnumeration : {type:'object', humanname:"Shortcuts"}
       },

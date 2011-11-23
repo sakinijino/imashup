@@ -10,13 +10,13 @@ dojo.declare("imashup.core.Register", null, {
         if (!dojo.isObject(impl)) return;
 
         impl.prototype.imashup_impl_name = option.impl_name;
-        impl.prototype.imashup_interface = option.interface;
+        impl.prototype.imashup_interface = option["interface"];
         impl.prototype.imashup_require_properties = (option.require_properties!=null)?option.require_properties:{};
 
         option.mixin_types = [imashup.mixins.BasicComponent].concat(option.mixin_types);
         if (option.mixin_types) this.mixinTypes(impl, option);
 
-        return {impl:impl, interface:impl.prototype.imashup_interface, reqprops:impl.prototype.imashup_require_properties};
+        return {impl:impl, "interface":impl.prototype.imashup_interface, reqprops:impl.prototype.imashup_require_properties};
     },
     mixinTypes: function(impl, option){
         for (var i=0; i<option.mixin_types.length; i++) {
@@ -66,7 +66,7 @@ dojo.declare("imashup.core.ComponentTypeManager", null, {
     },
     getInterface: function(name) {
         if (this.types[name]==null) return null;
-        return this.types[name].interface;
+        return this.types[name]["interface"];
     },
     getImpl: function(name) {
         if (this.types[name]==null) return null;

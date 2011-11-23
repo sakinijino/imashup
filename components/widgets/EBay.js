@@ -247,7 +247,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.widgets.EBay',
-    interface: {
+    "interface": {
         properties: {},
         methods: {
           "searchItem": { Function: "searchItem", CustomMethod: "/* arguments[0]: String */" },

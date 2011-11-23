@@ -33,7 +33,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.widgets.GoogleLineChart',
-    interface: {
+    "interface": {
         properties: {},
         methods: {
 			'setData': { Function: 'setData', CustomMethod: '/* arguments[0]: Array */' }

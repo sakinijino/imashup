@@ -260,7 +260,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.widgets.Channel',
-    interface: {
+    "interface": {
         properties: {},
         methods: {},
         events: {}

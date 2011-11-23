@@ -40,18 +40,17 @@ dojo.declare(
 		},
 		
 		getLocation: function(/* String */ _ip){
-			var _url = 'http://api.ipinfodb.com/v2'
-      if (imashup.configs && imashup.configs.proxy) 
-        _url = imashup.configs.proxy[_url] ? imashup.configs.proxy[_url] : _url 
-      _url += "/ip_query.php";
+			var _url = 'http://api.ipinfodb.com/v3';
+     			if (imashup.configs && imashup.configs.proxy) 
+      				_url = imashup.configs.proxy[_url] ? imashup.configs.proxy[_url] : _url ;
+    	  		_url += '/ip-city/';
 			var self = this;
 			var jsonArgs = {
 				url: _url,
 				content: {
-					key: "ca40445031c2f3a0d3759c8c20eca3b0a74479aad095ecdfc6b85ac3fc44c2d4",
-					output: "json",
-					timezone: "true",
-					ip: _ip
+					key: "ae6ab2e063c6b5daf15bc56eebc8e3764c21b88467622f7f1f894729f1b489bb",
+					ip: _ip,
+					format: "json",
 				},
 				load: function(response, ioArgs) {
 					//Set the data from the search into the viewbox in nicely formatted JSON
@@ -63,39 +62,41 @@ dojo.declare(
 				}
 			}
 			dojo.xhrGet(jsonArgs);
+		
 		},
 		
 		displayResult: function() {
-			this.result_ip.innerHTML = this.result.Ip;
+		//	console.log(this.result);
+			this.result_ip.innerHTML = this.result.ipAddress;
 			
-			this.result_country.innerHTML = this.result.CountryName;
-			this.Country(this.result.CountryName);
+			this.result_country.innerHTML = this.result.countryName;
+			this.Country(this.result.countryName);
 			
-			this.result_region.innerHTML = this.result.RegionName;
-			this.Region(this.result.RegionName);
+			this.result_region.innerHTML = this.result.regionName;
+			this.Region(this.result.regionName);
 			
-			this.result_city.innerHTML = this.result.City;
+			this.result_city.innerHTML = this.result.cityName;
 			this.City(this.result.City);
 			
-			this.result_postcode.innerHTML = this.result.ZipPostalCode;
+			this.result_postcode.innerHTML = this.result.zipCode;
 			this.PostalCode(this.result.ZipPostalCode);
 			
-			this.result_coordinate.innerHTML = " ( " + this.result.Latitude + " , " + this.result.Longitude + " ) ";
+			this.result_coordinate.innerHTML = " ( " + this.result.latitude + " , " + this.result.longitude + " ) ";
 			this.LatLng({
-				"Lat": this.result.Latitude, 
-				"Lng": this.result.Longitude
+				"Lat": this.result.latitude, 
+				"Lng": this.result.longitude
 			});
 			
 			this.Location({
-				"Country": this.result.CountryName,
-				"Region": this.result.RegionName,
-				"City": this.result.City,
-				"Lat": this.result.Latitude,
-				"Lng": this.result.Longitude,
-				"PostalCode": this.result.ZipPostalCode
+				"Country": this.result.countryName,
+				"Region": this.result.regionName,
+				"City": this.result.city,
+				"Lat": this.result.latitude,
+				"Lng": this.result.longitude,
+				"PostalCode": this.result.zipCode
 			})
 			
-			this.result_timezone.innerHTML = this.result.TimeZoneName;
+			this.result_timezone.innerHTML = this.result.timeZone;
 		},
 		
 		Country: function(/* String */ country) {
@@ -121,7 +122,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.widgets.IPLocation',
-    interface: {
+    "interface": {
         properties: {},
         methods: {
 			"getLocation": { Function: "getLocation", CustomMethod: "/* arguments[0]: String */" }

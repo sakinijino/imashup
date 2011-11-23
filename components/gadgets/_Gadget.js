@@ -45,7 +45,7 @@ imashup.components.gadgets.defGadget = function(name, params){
 
         imashup.core.componentTypeManager.registerComponentType({
             impl_name : 'imashup.components.gadgets.'+name,
-            interface: {
+            "interface": {
                 properties: {},
                 methods: {},
                 events: {}

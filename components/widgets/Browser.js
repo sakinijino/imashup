@@ -66,7 +66,7 @@ if (dojo.isIE) {
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.widgets.Browser',
-    interface: {
+    "interface": {
         properties: {},
         methods: {},
         events: {}
