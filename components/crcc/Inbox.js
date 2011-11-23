@@ -129,7 +129,7 @@ dojo.declare(
         var ctime = list[i].getCreateTime();
 				var tr = dojo.create("tr", { 
             innerHTML : '<td style="text-align:left" class="tl">'+t+'</td> <td>'+sn+'</td> <td>'+ctime+'</td> <td class="del">X</td>',
-            class: klass
+            "class": klass
           }, 
           dojo.query("table.list tbody", this.listPanel)[0]
         );
@@ -210,7 +210,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.crcc.Inbox',
-    interface: {
+    "interface": {
         properties: {},
         methods: {},
         events: {}

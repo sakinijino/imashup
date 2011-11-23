@@ -96,7 +96,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.crcc.Stocks',
-    interface: {
+    "interface": {
         properties: {},
         methods: {
 			"setNumber": { Function: "setNumber", CustomMethod: "/* arguments[0]: String */" }

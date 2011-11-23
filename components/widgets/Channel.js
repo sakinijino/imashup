@@ -9,7 +9,7 @@ dojo.declare(
     "imashup.components.widgets.Channel",
     [dijit._Widget, dijit._Templated],
     {
-    templatePath : dojo.moduleUrl("imashup.components.widgets", "templates/"+ (imashup.mobileMode ? "ChannelPhone" : "Channel") + ".html"),
+    templatePath: imashup.mobileMode ? dojo.moduleUrl("imashup.components.widgets", "templates/ChannelPhone.html") : dojo.moduleUrl("imashup.components.widgets", "templates/Channel.html"),
 		imashup_webos_large_icon_url: dojo.moduleUrl("imashup.components.widgets", "templates/mashup_large.png"),
 		imashup_webos_small_icon_url: dojo.moduleUrl("imashup.components.widgets", "templates/mashup_small.png"),
 		
@@ -257,6 +257,11 @@ dojo.declare(
 		}
 	}
 );
+
+//if (imashup.mobileMode) {
+  //imashup.components.widgets.Channel.prototype.templatePath = dojo.moduleUrl("imashup.components.widgets", "templates/ChannelPhone.html");
+  //imashup.components.widgets.Channel.prototype.templateString = null;
+//}
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.widgets.Channel',

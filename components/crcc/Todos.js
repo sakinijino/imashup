@@ -87,7 +87,7 @@ dojo.declare(
         var checked = list[i].isDone ? "checked" : "";
 				var tr = dojo.create("tr", { 
             innerHTML : '<td><input type="checkbox" '+checked+' name="broadcast"></td><td style="text-align:left" title="'+ct+'">'+ct+'</td> <td>'+ctime+'</td> <td>'+dtime+'</td> <td class="del">X</td>',
-            class: klass
+            "class": klass
           }, 
           dojo.query("table.list tbody", this.listPanel)[0]
         );
@@ -172,7 +172,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.crcc.Todos',
-    interface: {
+    "interface": {
         properties: {},
         methods: {},
         events: {}

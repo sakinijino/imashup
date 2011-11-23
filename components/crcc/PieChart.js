@@ -104,7 +104,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.crcc.PieChart',
-    interface: {
+    "interface": {
       properties: {},
       methods: {
 				"setChart": { Function: "setChart", CustomMethod: "/* arguments[0]: String */" }

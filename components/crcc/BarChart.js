@@ -65,7 +65,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.crcc.BarChart',
-    interface: {
+    "interface": {
       properties: {},
       methods: {
 				"setChart": { Function: "setChart", CustomMethod: "/* arguments[0]: String */" }

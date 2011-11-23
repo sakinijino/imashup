@@ -59,7 +59,7 @@ dojo.declare(
         if (this.curPerson && i == this.curPerson.id) klass += " selected";
 				var tr = dojo.create("tr", { 
             innerHTML : "<td>"+this.persons[i].name+"</td>",
-            class: klass
+            "class": klass
           }, 
           dojo.query("table.list tbody", this.listPanel)[0]
         );
@@ -154,7 +154,7 @@ dojo.declare(
 
 imashup.core.componentTypeManager.registerComponentType({
     impl_name : 'imashup.components.crcc.Contacts',
-    interface: {
+    "interface": {
       properties: {},
       methods: {},
       events: {

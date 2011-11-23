@@ -45,7 +45,7 @@ dojo.declare("imashup.core.InterfaceAdapter", null, {
 		for (var x in component.imashup_adapter.points) {
 			//component.imashup_adapter.points[x].menuItem = dojo.hitch(component, x);
 			var node = eval("dijit.byId('" + component.id + "')." + x);
-			node.style.float = "";
+			node.style["float"] = "";
 			node.style.top = "0px";
 			node.style.left = "0px";
 			node.style.position = "absolute";
