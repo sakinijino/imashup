@@ -2,7 +2,7 @@ dependencies = {
   cssOptimize : "comments",
   internStrings: true,
   releaseName : "",
-  version: "1.0",
+  version: "0.2",
 	layers: [
 		{
 			name: "../imashup/imashup.js",
