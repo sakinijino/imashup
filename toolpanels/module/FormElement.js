@@ -117,7 +117,7 @@ dojo.declare(
 								label: '&nbsp;&nbsp;',
 								dropDown: _this.colorDlg
 						});
-						//Remove ¨‹: dojo.query('span.dijitA11yDownArrow',c.invokeBtn.domNode)[0].style.display='none'
+						//Remove â–¼: dojo.query('span.dijitA11yDownArrow',c.invokeBtn.domNode)[0].style.display='none'
 						
 						this.invokeBtn.domNode.style.fontSize = "xx-small";
 						this.invokeBtn.containerNode.style.backgroundColor = this.element.getValue();
